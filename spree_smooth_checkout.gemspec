@@ -3,9 +3,9 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.name        = 'spree_smooth_checkout'
   s.version     = '2.1.5'
-  s.summary     = 'TODO: Add gem summary here'
-  s.description = 'TODO: Add (optional) gem description here'
-  s.required_ruby_version = '>= 1.9.3'
+  s.summary     = 'Smooths out the spree checkout process.'
+  s.description = 'This gem includes a redesigned checkout process for Spree that is smooth as silk.'
+  s.required_ruby_version = '>= 2.1'
 
   s.author    = ['Matthew Fenelon', 'Alex James']
   s.email     = ['matthew.fenelon@200creative.com', 'alex.james@200creative.com']
