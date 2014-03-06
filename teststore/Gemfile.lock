@@ -1,4 +1,14 @@
 GIT
+  remote: https://github.com/200Creative/spree_bootstrap_frontend.git
+  revision: 31ed95e301ac37c13868d3b713bb3759e2e0408c
+  branch: 2-1-stable
+  specs:
+    spree_bootstrap_frontend (2.1)
+      bootstrap-sass (~> 3.1.0)
+      kaminari-bootstrap (~> 3.0.1)
+      spree_core (~> 2.1.0)
+
+GIT
   remote: https://github.com/spree/spree_auth_devise.git
   revision: f6f91480655b8bd0179ba29a7fef917e8d20e101
   branch: 2-1-stable
@@ -24,6 +34,7 @@ PATH
   remote: ../
   specs:
     spree_smooth_checkout (2.1.5)
+      spree_bootstrap_frontend (~> 2.1)
       spree_core (~> 2.1.5)
 
 GEM
@@ -85,6 +96,8 @@ GEM
       erubis (>= 2.6.6)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
+    bootstrap-sass (3.1.1.0)
+      sass (~> 3.2)
     builder (3.1.4)
     callsite (0.0.11)
     cancan (1.6.10)
@@ -148,6 +161,9 @@ GEM
     kaminari (0.15.1)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
+    kaminari-bootstrap (3.0.1)
+      kaminari (>= 0.13.0)
+      rails
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
@@ -335,6 +351,7 @@ DEPENDENCIES
   sdoc
   spree (= 2.1.5)
   spree_auth_devise!
+  spree_bootstrap_frontend!
   spree_gateway!
   spree_smooth_checkout!
   sqlite3
