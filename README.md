@@ -47,6 +47,7 @@ bundle
 bundle exec rake railties:install:migrations
 bundle exec rake db:migrate
 bundle exec rake db:seed
+bundle exec rake spree_sample:load
 
 # Configure spree_bootstrap_frontend
 rails generate spree_bootstrap_frontend:install
