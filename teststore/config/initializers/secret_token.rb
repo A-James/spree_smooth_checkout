@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-Teststore::Application.config.secret_key_base = '994cc5df5f712dc7540e68ceee9db5b494334c4d63996572d0e6855adc7840b4f1401389171d2de867692bb5fddddbb1fa8b40074bf3deddd9bbe3c3b96eaa07'
+Teststore::Application.config.secret_key_base = '83123a5d5d8fe4273fd8acec7752303cda3fa3af729f2b6448e575a8d890cdaa4bc16e66ee5761d911243e4d90fb96fc7820df4697e6a26931108a31fc29f963'
