@@ -43,10 +43,15 @@ To run the teststore for the first time run the commands below. This will config
 cd teststore
 bundle
 
+# Set up the database
 bundle exec rake railties:install:migrations
 bundle exec rake db:migrate
 bundle exec rake db:seed
 
+# Configure spree_bootstrap_frontend
+rails generate spree_bootstrap_frontend:install
+
+# Start the web server
 rails s
 ```
 
