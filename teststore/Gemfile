@@ -41,8 +41,8 @@ end
 # Use Capistrano for deployment
 # gem 'capistrano', group: :development
 
-# Use debugger
-gem 'debugger', group: [:development, :test]
+# Use debugger, unless using RubyMine which conflicts with the debugger gem
+gem 'debugger', {group: [:test, :development]}.merge(ENV['RM_INFO'] ? {require: false} : {})
 
 # Better Errors replaces the standard Rails error page with a much better and more useful error page.
 gem 'better_errors'
