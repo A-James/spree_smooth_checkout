@@ -1,4 +1,13 @@
 <div id="checkout" data-hook>
+  <% ### Spree_smooth_checkout_specific ###
+     # To enable AJAX transitions between the checkout pages
+     # I've extracted the bulk of the checkout page into
+     # the 'wrapper' partial.
+     # On an AJAX request edit.js.erb is returned, containing
+     # just the contents of the wrapper partial.
+     # The HTML of the #checkout element is then replaced with
+     # the response.
+     %>
   <%= render :partial => 'wrapper', :locals => { :order => @order } %>
 </div>
 
