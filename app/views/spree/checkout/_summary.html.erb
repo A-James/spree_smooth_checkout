@@ -18,8 +18,8 @@
            # like this until the structure of the HTML is decided. %>
         <% if adjustment.originator_type == 'Spree::ShippingMethod' %>
             <tr><td colspan="2">
-                <%= form_for @order, :url => update_checkout_path(@order.state), :html => {:id => "checkout_form_#{@order.state}"} do |form| %>
-                    <input type="hidden" name="dont_transition" id="dont_transition" value="true" />
+                <%= form_for @order, remote: true, :url => update_checkout_path(@order.state), :html => {:id => "checkout_form_#{@order.state}"} do |form| %>
+                    <input type="hidden" name="is_summary" id="is_summary" value="true" />
                     <%= form.fields_for :shipments do |ship_form| %>
                         <% ship_form.object.shipping_rates.with_shipping_method.each do |rate| %>
                             <li class="list-group-item shipping-method">
