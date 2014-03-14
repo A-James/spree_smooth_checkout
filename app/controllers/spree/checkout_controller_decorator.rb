@@ -34,6 +34,30 @@ Spree::CheckoutController.module_eval do
     end
   end
 
+  def apply_coupon_code
+    if params[:order] && params[:order][:coupon_code]
+      @order.coupon_code = params[:order][:coupon_code]
+
+      coupon_result = Spree::Promo::CouponApplicator.new(@order).apply
+      if coupon_result[:coupon_applied?]
+        flash[:success] = coupon_result[:success] if coupon_result[:success].present?
+      else
+        flash.now[:error] = coupon_result[:error]
+        ## Spree_smooth_checkout specific
+        # Added format.js:
+        # apply_coupon_code breaks when called in an AJAX request
+        # as it only contains format.html.
+
+        respond_with(@order) do |format|
+          format.html { render :edit }
+          format.js { render :edit }
+        end
+
+        ## Spree_smooth_checkout specific - FIN
+      end
+    end
+  end
+
   # This method overrides the default redirect_to
   # to use a clientside redirect when the request
   # is made using XHR.
