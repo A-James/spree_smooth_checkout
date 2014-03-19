@@ -2,6 +2,33 @@
 
 <table data-hook="order_summary" class="table">
   <tbody>
+    <% ### Spree_smooth_checkout_specific ###
+     # This could be extracted into a partial but I'm leaving it
+     # like this until the structure of the HTML is decided.  %>
+    <% @order.line_items.each do |line_item| %>
+        <% variant = line_item.variant  -%>
+        <tr class="line-item">
+            <td class="cart-item-image" data-hook="cart_item_image">
+              <% if variant.images.length == 0 %>
+                  <%= link_to small_image(variant.product), variant.product %>
+              <% else %>
+                  <%= link_to image_tag(variant.images.first.attachment.url(:small)), variant.product %>
+              <% end %>
+            </td>
+            <td class="cart-item-description" data-hook="cart_item_description">
+              <h4><%= link_to line_item.name, product_path(variant.product) %></h4>
+              <%= variant.options_text %>
+              <% if @order.insufficient_stock_lines.include? line_item %>
+                <span class="out-of-stock">
+                  <%= Spree.t(:out_of_stock) %>&nbsp;&nbsp;<br/>
+                </span>
+              <% end %>
+
+              <%= line_item.quantity %> x <%= line_item.single_money.to_html %>
+            </td>
+        </tr>
+    <% end %>
+    <% ### Spree_smooth_checkout_specific - FIN ###  %>
     <tr data-hook="item_total">
       <td><strong><%= Spree.t(:item_total) %>:</strong></td>
       <td><strong><%= order.display_item_total.to_html %></strong></td>
