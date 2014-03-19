@@ -4,8 +4,7 @@ Spree::CheckoutController.module_eval do
 
   def update
     # is_summary comes from the form on the summary partial
-    request_is_from_summary_section = params[:is_summary]
-    if request_is_from_summary_section
+    if is_summary_update
       update_order_from_summary
     else
       update_original
@@ -50,7 +49,13 @@ Spree::CheckoutController.module_eval do
 
         respond_with(@order) do |format|
           format.html { render :edit }
-          format.js { render :edit }
+          format.js {
+            if is_summary_update
+              render "summary"
+            else
+              render :edit
+            end
+          }
         end
 
         ## Spree_smooth_checkout specific - FIN
@@ -97,5 +102,9 @@ Spree::CheckoutController.module_eval do
     self.status = 200
     headers.delete("Location")
     self.response_body = nil
+  end
+
+  def is_summary_update
+    params[:is_summary]
   end
 end
