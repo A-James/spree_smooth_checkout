@@ -31,6 +31,9 @@
     </tbody>
     <% extra_items = @order.line_items.drop(4) %>
     <% if extra_items.any? %>
+        <tbody class="more-line-items-activator">
+            <tr><td colspan="2"><%= Spree.t(:and_x_more, count: extra_items.count) %></td></tr>
+        </tbody>
         <tbody class="more-line-items">
             <% extra_items.each do |line_item| %>
                 <% variant = line_item.variant -%>
