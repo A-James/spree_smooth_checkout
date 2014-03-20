@@ -23,7 +23,7 @@
                       <%= Spree.t(:out_of_stock) %>&nbsp;&nbsp;<br/>
                     </span>
                   <% end %>
-                  <%= line_item.quantity %> x <%= line_item.single_money.to_html %>
+                  <%= Spree.t(:quantity_with_cost, quantity: line_item.quantity, cost: line_item.single_money.to_html) %>
                     <br/><a href="/cart">Edit</a>
                 </td>
             </tr>
