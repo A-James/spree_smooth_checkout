@@ -6,16 +6,7 @@
       <div data-hook="checkout_progress"><%= checkout_progress %></div>     
 
       <%= form_for @order, remote: true, :url => update_checkout_path(@order.state), :html => { :id => "checkout_form_#{@order.state}" } do |form| %>
-        <% unless @order.email? %>
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <p class="field">
-              <%= form.label :email %><br />
-              <%= form.text_field :email, class: "form-control" %>
-            </p>
-          </div>
-        </div>
-        <% end %>
+
         <%= render @order.state, :form => form %>
       <% end %>
     </div>

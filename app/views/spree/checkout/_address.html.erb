@@ -1,6 +1,14 @@
 <div class="row">
   <div class="col-sm-6" data-hook="billing_fieldset_wrapper">
     <div id="billing" data-hook>
+      <% unless @order.email? %>
+
+        <p class="field">
+          <%= form.label :email %><br />
+          <%= form.text_field :email, class: "form-control" %>
+        </p>
+
+      <% end %>
       <%= form.fields_for :bill_address do |bill_form| %>
 
           <%= render :partial => 'spree/address/form', :locals => { :form => bill_form, :address_type => 'billing', :address => @order.bill_address } %>
