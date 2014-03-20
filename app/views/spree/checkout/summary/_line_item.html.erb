@@ -1,0 +1,15 @@
+<% variant = line_item.variant -%>
+<tr class="line-item">
+  <td class="cart-item-image" data-hook="cart_item_image">
+    <% if variant.images.length == 0 %>
+        <%= link_to small_image(variant.product), variant.product %>
+    <% else %>
+        <%= link_to image_tag(variant.images.first.attachment.url(:small)), variant.product %>
+    <% end %>
+  </td>
+  <td class="cart-item-description text-right" data-hook="cart_item_description">
+    <%= link_to line_item.name, product_path(variant.product) %><br/>
+    <%= Spree.t(:quantity_with_cost, quantity: line_item.quantity, cost: line_item.single_money.to_html) %>
+    <br/><a href="/cart">Edit</a>
+  </td>
+</tr>
