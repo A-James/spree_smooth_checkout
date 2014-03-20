@@ -1,6 +1,6 @@
 <div class="well">
 
-  <table data-hook="order_summary" class="table">
+  <table data-hook="order_summary" class="table cart-summary">
     <tbody>
       <% ### Spree_smooth_checkout_specific ###
        # This could be extracted into a partial but I'm leaving it
@@ -15,30 +15,30 @@
                     <%= link_to image_tag(variant.images.first.attachment.url(:small)), variant.product %>
                 <% end %>
               </td>
-              <td class="cart-item-description" data-hook="cart_item_description">
-                <h4><%= link_to line_item.name, product_path(variant.product) %></h4>
+              <td class="cart-item-description text-right" data-hook="cart_item_description">
+                <%= link_to line_item.name, product_path(variant.product) %><br/>
                 <%= variant.options_text %>
                 <% if @order.insufficient_stock_lines.include? line_item %>
                   <span class="out-of-stock">
                     <%= Spree.t(:out_of_stock) %>&nbsp;&nbsp;<br/>
                   </span>
                 <% end %>
-
                 <%= line_item.quantity %> x <%= line_item.single_money.to_html %>
+                <br/><a href="/cart">Edit</a>
               </td>
           </tr>
       <% end %>
       <% ### Spree_smooth_checkout_specific - FIN ###  %>
       <tr data-hook="item_total">
-        <td><strong><%= Spree.t(:item_total) %>:</strong></td>
-        <td><strong><%= order.display_item_total.to_html %></strong></td>
+        <td><%= Spree.t(:item_total) %></td>
+        <td class="text-right"><%= order.display_item_total.to_html %></td>
       </tr>
       <tbody id="summary-order-charges" data-hook>
         <% order.adjustments.eligible.each do |adjustment| %>
           <% next if (adjustment.originator_type == 'Spree::TaxRate') and (adjustment.amount == 0) %>
           <tr>
-            <td><%= adjustment.label %>: </td>
-            <td><%= adjustment.display_amount.to_html %></td>
+            <td><%= adjustment.label %> </td>
+            <td class="text-right"><%= adjustment.display_amount.to_html %></td>
           </tr>
           <% ### Spree_smooth_checkout_specific ###
              # This could be extracted into a partial but I'm leaving it
@@ -74,8 +74,8 @@
         <% end %>
       </tbody>
       <tr data-hook="order_total">
-        <td><strong><%= Spree.t(:order_total) %>:</strong></td>
-        <td><strong><span id='summary-order-total'><%= @order.display_total.to_html %></span></strong></td>
+        <td><%= Spree.t(:order_total) %></td>
+        <td class="text-right"><span id='summary-order-total'><h4><%= @order.display_total.to_html %></h4><a href="#">Add Discount code</a></span></td>
       </tr>
       <% ### Spree_smooth_checkout_specific ###
        # This could be extracted into a partial but I'm leaving it
@@ -104,15 +104,15 @@
         <tbody id="price-adjustments" data-hook="order_details_price_adjustments">
           <% @order.line_item_adjustment_totals.each do |label, total| %>
             <tr class="total">
-              <td><strong><%= label %></strong></td>
-              <td><strong><span><%= total.to_html %></span></strong></td>
+              <td><%= label %></td>
+              <td class="text-right"><span><%= total.to_html %></span></td>
             </tr>
           <% end %>
         </tbody>
       <% end %>
     </tbody>
   </table>
-  
+
   <div class="text-right">
       <a href="#">FAQs</a> | <a href="#">Shipping info</a>
   </div>
