@@ -1,33 +1,64 @@
 <div class="well">
 
   <table data-hook="order_summary" class="table cart-summary">
-  <tbody>
     <% ### Spree_smooth_checkout_specific ###
      # This could be extracted into a partial but I'm leaving it
      # like this until the structure of the HTML is decided.  %>
-    <% @order.line_items.each do |line_item| %>
-        <% variant = line_item.variant  -%>
-        <tr class="line-item">
-            <td class="cart-item-image" data-hook="cart_item_image">
-              <% if variant.images.length == 0 %>
-                  <%= link_to small_image(variant.product), variant.product %>
-              <% else %>
-                  <%= link_to image_tag(variant.images.first.attachment.url(:small)), variant.product %>
-              <% end %>
-            </td>
-              <td class="cart-item-description text-right" data-hook="cart_item_description">
-                <%= link_to line_item.name, product_path(variant.product) %><br/>
-              <%= variant.options_text %>
-              <% if @order.insufficient_stock_lines.include? line_item %>
-                <span class="out-of-stock">
-                  <%= Spree.t(:out_of_stock) %>&nbsp;&nbsp;<br/>
-                </span>
-              <% end %>
-              <%= line_item.quantity %> x <%= line_item.single_money.to_html %>
-                <br/><a href="/cart">Edit</a>
-            </td>
-        </tr>
+    <tbody>
+        <% @order.line_items.take(4).each do |line_item| %>
+            <% variant = line_item.variant  -%>
+            <tr class="line-item">
+                <td class="cart-item-image" data-hook="cart_item_image">
+                  <% if variant.images.length == 0 %>
+                      <%= link_to small_image(variant.product), variant.product %>
+                  <% else %>
+                      <%= link_to image_tag(variant.images.first.attachment.url(:small)), variant.product %>
+                  <% end %>
+                </td>
+                  <td class="cart-item-description text-right" data-hook="cart_item_description">
+                    <%= link_to line_item.name, product_path(variant.product) %><br/>
+                  <%= variant.options_text %>
+                  <% if @order.insufficient_stock_lines.include? line_item %>
+                    <span class="out-of-stock">
+                      <%= Spree.t(:out_of_stock) %>&nbsp;&nbsp;<br/>
+                    </span>
+                  <% end %>
+                  <%= line_item.quantity %> x <%= line_item.single_money.to_html %>
+                    <br/><a href="/cart">Edit</a>
+                </td>
+            </tr>
+        <% end %>
+    </tbody>
+    <% extra_items = @order.line_items.drop(4) %>
+    <% if extra_items.any? %>
+        <tbody class="more-line-items">
+            <% extra_items.each do |line_item| %>
+                <% variant = line_item.variant -%>
+                <tr class="line-item">
+                  <td class="cart-item-image" data-hook="cart_item_image">
+                    <% if variant.images.length == 0 %>
+                        <%= link_to small_image(variant.product), variant.product %>
+                    <% else %>
+                        <%= link_to image_tag(variant.images.first.attachment.url(:small)), variant.product %>
+                    <% end %>
+                  </td>
+                  <td class="cart-item-description text-right" data-hook="cart_item_description">
+                    <%= link_to line_item.name, product_path(variant.product) %>
+                    <br/>
+                    <%= variant.options_text %>
+                    <% if @order.insufficient_stock_lines.include? line_item %>
+                            <span class="out-of-stock">
+                              <%= Spree.t(:out_of_stock) %>&nbsp;&nbsp;<br/>
+                            </span>
+                    <% end %>
+                    <%= line_item.quantity %> x <%= line_item.single_money.to_html %>
+                    <br/><a href="/cart">Edit</a>
+                  </td>
+                </tr>
+            <% end %>
+        </tbody>
     <% end %>
+    <tbody>
     <% ### Spree_smooth_checkout_specific - FIN ###  %>
     <tr data-hook="item_total">
         <td><%= Spree.t(:item_total) %></td>
