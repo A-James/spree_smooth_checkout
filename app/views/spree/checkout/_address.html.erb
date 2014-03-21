@@ -48,7 +48,7 @@
   <div class="col-sm-6" data-hook="shipping_fieldset_wrapper">
 
     <div id="billing" data-hook>
-      <h4>Shipping Address</h4>
+      <h4>Your Address</h4>
       <%= form.fields_for :bill_address do |bill_form| %>
 
           <%= render :partial => 'spree/address/form', :locals => { :form => bill_form, :address_type => 'billing', :address => @order.bill_address } %>
@@ -60,7 +60,7 @@
 
           <p class="field checkbox" data-hook="use_billing">
             <%= check_box_tag 'order[use_billing]', '1', @order.shipping_eq_billing_address? %>
-            <%= label_tag :order_use_billing, "Use this as billing address", :id => 'use_billing' %>
+            <%= label_tag :order_use_billing, "Use this as my shipping address", :id => 'use_billing' %>
           </p>
           <%= render :partial => 'spree/address/form', :locals => { :form => ship_form, :address_type => 'shipping', :address => @order.ship_address } %>
 
