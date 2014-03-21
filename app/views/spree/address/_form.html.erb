@@ -31,7 +31,7 @@
   <div class="form-group" id=<%="#{address_id}country" %>>
     <%= form.label :country_id, Spree.t(:country) %><br />
     <span id=<%="#{address_id}country-selection" %>>
-      <%= form.select :country_id, options_for_select(available_countries.map{|c| [c.name, c.id, {'data-iso' => c.iso}] }, selected_key = form.object.country_id), {}, {:class => 'form-control required'} %>
+      <%= form.select :country_id, options_for_select(available_countries.map { |c| [c.name, c.id, { 'data-iso' => c.iso }] }, selected_key = form.object.country_id), {}, {:class => 'form-control required'} %>
     </span>
   </div>
 
