@@ -10,6 +10,51 @@ Spree::Order.class_eval do
       false
     end
 
+    def firstname
+      address = bill_address || ship_address
+      address.try(:firstname)
+    end
+
+    def firstname=(firstname)
+      if bill_address
+        bill_address.firstname = firstname
+      end
+
+      if ship_address
+        ship_address.firstname = firstname
+      end
+    end
+
+    def lastname
+      address = bill_address || ship_address
+      address.try(:lastname)
+    end
+
+    def lastname=(lastname)
+      if bill_address
+        bill_address.lastname = lastname
+      end
+
+      if ship_address
+        ship_address.lastname = lastname
+      end
+    end
+
+    def phone
+      address = bill_address || ship_address
+      address.try(:phone)
+    end
+
+    def phone=(phone)
+      if bill_address
+        bill_address.phone = phone
+      end
+
+      if ship_address
+        ship_address.phone = phone
+      end
+    end
+
     private
       def skip_delivery
         # Progress the state machine to the next state,
