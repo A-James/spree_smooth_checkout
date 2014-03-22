@@ -9,4 +9,8 @@ $( function() {
       top: 90 } //height of header
     });
 
+  $('#add-discount-code').on('click', function(){
+    $('#discount-code').removeClass('hidden');
+  });
+
 });

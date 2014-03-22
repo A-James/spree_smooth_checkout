@@ -1,3 +1,85 @@
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuw1U5hROHHHBxQ-qgLPm6MH2Tk-jvC-4&sensor=false">
+</script>
+
+<script type="text/javascript">
+
+//Only search when value is changed from previous
+//Only change when result is valid and new
+//Disable once change clicked
+//Only display a 2 part result
+//Don't use on second form
+//Set drop down selectors to correct values
+
+geocoder = new google.maps.Geocoder();
+
+findAddress = function(postcode) {
+
+  geocoder.geocode( { 'address': postcode + ", UK" }, function(results, status) {
+
+    // console.log(results);
+
+    if (results[0]){
+
+      try {
+        var postalTown = $.grep(results[0].address_components, function(el){
+          return $.inArray('postal_town', el.types) !== -1;
+        })[0].long_name;
+      } catch(e) { false }
+      try {
+        var locality = $.grep(results[0].address_components, function(el){
+          return $.inArray('locality', el.types) !== -1;
+        })[0].long_name;
+      } catch(e) { false }
+      try {
+        var adminArea = $.grep(results[0].address_components, function(el){
+          return $.inArray('administrative_area_level_1', el.types) !== -1;
+        })[0].long_name;
+      } catch(e) { false }
+      try {
+        var country = $.grep(results[0].address_components, function(el){
+          return $.inArray('country', el.types) !== -1;
+        })[0].long_name;
+        var countryCode = $.grep(results[0].address_components, function(el){
+          return $.inArray('country', el.types) !== -1;
+        })[0].short_name;
+      } catch(e) { false }
+      try {
+      
+      finalCity = postalTown ? postalTown : locality;
+      friendlyCity = finalCity ? finalCity + ", " : "";
+      friendlyAdminArea = adminArea ? adminArea + ", " : "";
+      friendlyCountry = country ? country : "";;
+
+      $('#address-computed').text(friendlyCity + friendlyAdminArea + friendlyCountry);
+      $('#change-address').removeClass('hidden');
+
+      $('#order_bill_address_attributes_city').val(finalCity);
+
+    }
+    
+  });
+
+}
+
+$('#change-address').on('click', function(){
+  $('.change-address').addClass('hidden');
+  $('.address-hidden').removeClass('hidden');
+  return false;
+});
+
+$('#order_bill_address_attributes_zipcode').on('keyup', function(){ //keyup change paste (omit tab-on keyup), autofill
+  var currentVal = $(this).val();
+  if (currentVal.length >= 4) {
+    findAddress(currentVal);
+  } else {
+    $('#address-computed').text('');
+    $('#order_bill_address_attributes_city').val('');
+    $('#change-address').addClass('hidden');
+  }
+});
+
+</script>
+
 <% address_id = address_type.chars.first %>
 <div class="inner" data-hook=<%="#{address_type}_inner" %>>
   <% if Spree::Config[:company] %>
@@ -6,12 +88,13 @@
       <%= form.text_field :company, :class => 'form-control' %>
     </div>
   <% end %>
-  <div class="form-group" id=<%="#{address_id}address1" %>>
-    <%= form.label :address1, Spree.t(:street_address) %><br />
+  <div class="form-group has-success has-feedback" id=<%="#{address_id}address1" %>>
+    <%= form.label :address1, "First line of address" %><br />
     <%= form.text_field :address1, :class => 'form-control  required' %>
+    <span class="glyphicon glyphicon-ok form-control-feedback"></span>
   </div>
   <div class="form-group" id=<%="#{address_id}address2" %>>
-    <%= form.label :address2, Spree.t(:street_address_2) %><br />
+    <%= form.label :address2, "Second line of address (optional)" %><br />
     <%= form.text_field :address2, :class => 'form-control' %>
   </div>
   <div class="row">
@@ -21,13 +104,18 @@
         <%= form.text_field :zipcode, :class => 'form-control required' %>
       </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-6 hidden address-hidden">
       <div class="form-group" id=<%="#{address_id}city" %>>
         <%= form.label :city, Spree.t(:city) %><br />
         <%= form.text_field :city, :class => 'form-control required' %>
       </div>
     </div>
+    <div class="col-md-6 change-address">
+      <br/>
+      <span id="address-computed"></span> <span id="change-address" class="hidden">(<a href="#">Change</a>)</span>
+    </div>
   </div>
+  <div class="hidden address-hidden">
   <div class="form-group" id=<%="#{address_id}country" %>>
     <%= form.label :country_id, Spree.t(:country) %><br />
     <span id=<%="#{address_id}country-selection" %>>
@@ -59,5 +147,6 @@
         <%= form.text_field :state_name, :class => 'form-control required' %>
       </noscript>
   <% end %>
+  </div>
 
 </div>

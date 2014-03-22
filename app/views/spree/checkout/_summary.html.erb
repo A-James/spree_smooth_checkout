@@ -66,27 +66,27 @@
     </tbody>
     <tr data-hook="order_total">
         <td><%= Spree.t(:order_total) %></td>
-        <td class="text-right"><span id='summary-order-total'><h4><%= @order.display_total.to_html %></h4><a href="#">Add Discount code</a></span></td>
-    </tr>
-    <% ### Spree_smooth_checkout_specific ###
-     # This could be extracted into a partial but I'm leaving it
-     # like this until the structure of the HTML is decided.  %>
-    <% if Spree::Promotion.with_code.count > 0 %>
-        <tr>
-            <td colspan="2">
-              <%= form_for @order, remote: true, :url => update_checkout_path(@order.state), :html => {:id => "checkout_form_#{@order.state}"} do |form| %>
-                  <input type="hidden" name="is_summary" id="is_summary" value="true"/>
+        <td class="text-right"><span id='summary-order-total'><h4><%= @order.display_total.to_html %></h4><a id="add-discount-code" href="#">+ Add Discount code</a></span>
 
-                  <p class='field' data-hook='coupon_code'>
-                    <%= form.label :coupon_code %><br/>
-                    <% # Blank value to stop the coupon code just entered being shown again. %>
-                    <%= form.text_field :coupon_code, :value => '', :class => 'form-control' %>
-                  </p>
+        <% ### Spree_smooth_checkout_specific ###
+         # This could be extracted into a partial but I'm leaving it
+         # like this until the structure of the HTML is decided.  %>
+        <% if Spree::Promotion.with_code.count >= 0 %>
 
-                  <div class="well text-right form-buttons" data-hook="buttons">
-                    <%= submit_tag Spree.t(:update), :class => 'btn btn-lg btn-success' %>
-                  </div>
-              <% end %>
+
+              <div class="hidden" id="discount-code">
+                <%= form_for @order, remote: true, :url => update_checkout_path(@order.state), :html => {:id => "checkout_form_#{@order.state}"} do |form| %>
+                    <input type="hidden" name="is_summary" id="is_summary" value="true"/>
+                    <div class="input-group pull-right" data-hook='coupon_code'>
+                      <% # Blank value to stop the coupon code just entered being shown again. %>
+                      <%= form.text_field :coupon_code, :value => '', :class => 'form-control', :placeholder => "Discount code" %>
+                      <span class="input-group-btn">
+                        <%= submit_tag Spree.t(:update), :class => 'btn btn-success' %>
+                      </span>
+                    </div>
+                    
+                <% end %>
+              </div>
             </td>
         </tr>
     <% end %>
