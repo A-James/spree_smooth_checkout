@@ -1,4 +1,4 @@
-Spree::CheckoutController.module_eval do
+Spree::CheckoutController.class_eval do
   alias_method :update_original, :update
   alias_method :redirect_to_original, :redirect_to
   layout '/spree/layouts/spree_checkout'
