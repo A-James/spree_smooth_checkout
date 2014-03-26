@@ -4,11 +4,11 @@
 <script type="text/javascript">
 
 //Only search when value is changed from previous
-//Only change when result is valid and new
 //Disable once change clicked
 //Only display a 2 part result
 //Don't use on second form
 //Set drop down selectors to correct values
+//Set all validation / events to trigger on auto fill
 
 geocoder = new google.maps.Geocoder();
 
@@ -43,8 +43,7 @@ findAddress = function(postcode) {
           return $.inArray('country', el.types) !== -1;
         })[0].short_name;
       } catch(e) { false }
-      try {
-      
+
       finalCity = postalTown ? postalTown : locality;
       friendlyCity = finalCity ? finalCity + ", " : "";
       friendlyAdminArea = adminArea ? adminArea + ", " : "";
@@ -52,6 +51,7 @@ findAddress = function(postcode) {
 
       $('#address-computed').text(friendlyCity + friendlyAdminArea + friendlyCountry);
       $('#change-address').removeClass('hidden');
+      $("#order_bill_address_attributes_country_id option[data-iso=" + countryCode +"]").attr("selected","selected") ;
 
       $('#order_bill_address_attributes_city').val(finalCity);
 
@@ -78,6 +78,25 @@ $('#order_bill_address_attributes_zipcode').on('keyup', function(){ //keyup chan
   }
 });
 
+$.validator.setDefaults({
+    highlight: function(element) {
+      $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+    },
+    unhighlight: function(element) {
+      $(element).closest('.form-group').removeClass('has-error').addClass('has-success');
+    },
+    errorElement: 'span',
+    errorClass: 'help-block',
+    errorPlacement: function(error, element) {}
+    // errorPlacement: function(error, element) {
+    //     if(element.parent('.input-group').length) {
+    //         error.insertAfter(element.parent());
+    //     } else {
+    //         error.insertAfter(element);
+    //     }
+    // }
+});
+
 </script>
 
 <% address_id = address_type.chars.first %>
@@ -88,26 +107,33 @@ $('#order_bill_address_attributes_zipcode').on('keyup', function(){ //keyup chan
       <%= form.text_field :company, :class => 'form-control' %>
     </div>
   <% end %>
-  <div class="form-group has-success has-feedback" id=<%="#{address_id}address1" %>>
+  <div class="form-group has-feedback" id=<%="#{address_id}address1" %>>
     <%= form.label :address1, "First line of address" %><br />
     <%= form.text_field :address1, :class => 'form-control  required' %>
     <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+    <span class="glyphicon glyphicon-remove form-control-feedback"></span>
   </div>
-  <div class="form-group" id=<%="#{address_id}address2" %>>
+  <div class="form-group  has-feedback" id=<%="#{address_id}address2" %>>
     <%= form.label :address2, "Second line of address (optional)" %><br />
     <%= form.text_field :address2, :class => 'form-control' %>
+    <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+    <span class="glyphicon glyphicon-remove form-control-feedback"></span>
   </div>
   <div class="row">
     <div class="col-md-6">
-      <div class="form-group" id=<%="#{address_id}zipcode" %>>
+      <div class="form-group  has-feedback" id=<%="#{address_id}zipcode" %>>
         <%= form.label :zipcode, Spree.t(:zip) %><br />
         <%= form.text_field :zipcode, :class => 'form-control required' %>
+        <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+        <span class="glyphicon glyphicon-remove form-control-feedback"></span>
       </div>
     </div>
     <div class="col-md-6 hidden address-hidden">
-      <div class="form-group" id=<%="#{address_id}city" %>>
+      <div class="form-group  has-feedback" id=<%="#{address_id}city" %>>
         <%= form.label :city, Spree.t(:city) %><br />
         <%= form.text_field :city, :class => 'form-control required' %>
+        <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+        <span class="glyphicon glyphicon-remove form-control-feedback"></span>
       </div>
     </div>
     <div class="col-md-6 change-address">

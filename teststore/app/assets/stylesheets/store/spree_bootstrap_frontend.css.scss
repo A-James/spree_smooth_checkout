@@ -52,6 +52,12 @@ $icon-font-path: "../bootstrap/";
 h1 {
   margin-bottom: 30px;
 }
+.form-control-feedback {
+  display: none !important;
+  }
+.has-success .form-control-feedback.glyphicon-ok, .has-error .form-control-feedback.glyphicon-remove {
+  display: block !important;
+}
 
 
 // -- Cart layout rules ---------------------------------
