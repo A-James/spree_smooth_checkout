@@ -24,42 +24,50 @@
          # This could be extracted into a partial but I'm leaving it
          # like this until the structure of the HTML is decided.   %>
       <% shipping_adjustments = order.adjustments.eligible.select { |a| a.originator_type == 'Spree::ShippingMethod' } %>
-      <% if shipping_adjustments.any? {|a| a.originator_type == 'Spree::ShippingMethod'} %>
+      <% order_has_shipments = shipping_adjustments.any? { |a| a.originator_type == 'Spree::ShippingMethod' } %>
+      <% if order_has_shipments %>
         <%= form_for @order, remote: true, :url => update_checkout_path(@order.state), :html => {:id => "checkout_form_#{@order.state}"} do |form| %>
             <input type="hidden" name="is_summary" id="is_summary" value="true"/>
-            <%= form.fields_for :shipments do |ship_form| %>
-                <% adjustment = shipping_adjustments.find { |a| a.source_id == ship_form.object.id } %>
+            <% form.object.shipments.each do |shipment| %>
+                <% adjustment = shipping_adjustments.find { |a| a.source_id == shipment.id } %>
                 <tr>
                   <td><%= adjustment.label %>:</td>
                   <td class="text-right"><%= adjustment.display_amount.to_html %></td>
                 </tr>
+                <% if shipment.shipping_rates.count > 1 %>
+                    <tr>
+                      <td colspan="2">
+                        <%= form.fields_for shipment do |ship_form| %>
+                            <% ship_form.object.shipping_rates.each do |rate| %>
+                                <li class="list-group-item shipping-method">
+                                  <label>
+                                    <%= ship_form.radio_button :selected_shipping_rate_id, rate.id %>
+                                    <span class="rate-name"><%= rate.name %></span>
+                                    <span class="badge rate-cost"><%= rate.display_cost %></span>
+                                  </label>
+                                </li>
+                            <% end %>
+                        <% end %>
+                      </td>
+                    </tr>
+                <% end %>
+            <% end %>
+            <% shipments_or_shipping_instructions_can_be_updated = form.object.shipments.any? { |s| s.shipping_rates.count > 1 } || Spree::Config[:shipping_instructions] %>
+            <% if shipments_or_shipping_instructions_can_be_updated %>
                 <tr>
                   <td colspan="2">
-                    <% ship_form.object.shipping_rates.each do |rate| %>
-                        <li class="list-group-item shipping-method">
-                          <label>
-                            <%= ship_form.radio_button :selected_shipping_rate_id, rate.id %>
-                            <span class="rate-name"><%= rate.name %></span>
-                            <span class="badge rate-cost"><%= rate.display_cost %></span>
-                          </label>
-                        </li>
+                    <% if Spree::Config[:shipping_instructions] %>
+                        <p id="minstrs" data-hook>
+                        <h4><%= Spree.t(:shipping_instructions) %></h4>
+                        <%= form.text_area :special_instructions, :cols => 40, :rows => 4, :class => "form-control" %>
+                        </p>
                     <% end %>
+                    <div class="well text-right form-buttons" data-hook="buttons">
+                      <%= submit_tag Spree.t(:update), :class => 'btn btn-lg btn-success' %>
+                    </div>
                   </td>
                 </tr>
             <% end %>
-            <tr>
-              <td colspan="2">
-                <% if Spree::Config[:shipping_instructions] %>
-                    <p id="minstrs" data-hook>
-                    <h4><%= Spree.t(:shipping_instructions) %></h4>
-                    <%= form.text_area :special_instructions, :cols => 40, :rows => 4, :class => "form-control" %>
-                    </p>
-                <% end %>
-                <div class="well text-right form-buttons" data-hook="buttons">
-                  <%= submit_tag Spree.t(:update), :class => 'btn btn-lg btn-success' %>
-                </div>
-              </td>
-            </tr>
         <% end %>
       <% end %>
       <% ### Spree_smooth_checkout_specific - FIN ###   %>
