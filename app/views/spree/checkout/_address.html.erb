@@ -36,7 +36,7 @@
     <div class="form-group has-feedback" id="phone">
       <%= form.label :phone, Spree.t(:phone) %>
       <br/>
-      <%= form.phone_field :phone, :class => 'form-control required' %>
+      <%= form.phone_field :phone, :class => "form-control #{'required' if @order.require_phone?}" %>
       <span class="glyphicon glyphicon-ok form-control-feedback"></span>
       <span class="glyphicon glyphicon-remove form-control-feedback"></span>
     </div>
