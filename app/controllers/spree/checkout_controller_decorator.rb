@@ -91,10 +91,12 @@ Spree::CheckoutController.class_eval do
   # to use a clientside redirect when the request
   # is made using XHR.
   def redirect_to(*args)
-    redirect_to_original(*args)
-    return unless request.xhr?
-
-    redirect_clientside_when_outside_checkout
+    result = redirect_to_original(*args)
+    if request.xhr?
+      return redirect_clientside_when_outside_checkout(result)
+    else
+      return result
+    end
   end
 
   # Redirects within the checkout path are allowed
@@ -103,10 +105,13 @@ Spree::CheckoutController.class_eval do
   # Redirects outside of the checkout path needs to
   # break out of the AJAX request to perform the
   # redirect.
-  def redirect_clientside_when_outside_checkout
+  def redirect_clientside_when_outside_checkout(result)
     redirecting_outside_checkout = self.status == 302 && self.location.include?(checkout_path) == false
     if redirecting_outside_checkout
       mutate_http_redirect_to_clientside_redirect
+      return true
+    else
+      return result
     end
   end
 
