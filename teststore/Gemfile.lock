@@ -36,6 +36,7 @@ PATH
     spree_smooth_checkout (2.1.5)
       spree_bootstrap_frontend (~> 2.1)
       spree_core (~> 2.1)
+      spree_frontend (~> 2.1)
 
 GEM
   remote: https://rubygems.org/
