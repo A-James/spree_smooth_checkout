@@ -1,0 +1,9 @@
+.form-control-feedback {
+  display: none !important;
+  }
+.has-success .form-control-feedback.glyphicon-ok, .has-error .form-control-feedback.glyphicon-remove {
+  display: block !important;
+}
+#lock-summary {
+  top: 20px;
+}
