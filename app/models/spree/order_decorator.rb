@@ -55,6 +55,10 @@ Spree::Order.class_eval do
       end
     end
 
+    def require_phone?
+      bill_address.try(:require_phone?) || ship_address.try(:require_phone?)
+    end
+
     private
       def skip_delivery
         # Progress the state machine to the next state,

@@ -36,7 +36,7 @@
     <div class="form-group has-feedback" id="phone">
       <%= form.label :phone, Spree.t(:phone) %>
       <br/>
-      <%= form.phone_field :phone, :class => 'form-control required' %>
+      <%= form.phone_field :phone, :class => "form-control #{'required' if @order.require_phone?}" %>
       <span class="glyphicon glyphicon-ok form-control-feedback"></span>
       <span class="glyphicon glyphicon-remove form-control-feedback"></span>
     </div>
@@ -48,7 +48,7 @@
       <h4>Your Address</h4>
       <%= form.fields_for :bill_address do |bill_form| %>
 
-          <%= render :partial => 'spree/address/form', :locals => { :form => bill_form, :address_type => 'billing', :address => @order.bill_address } %>
+          <%= render :partial => 'spree/checkout/address/form', :locals => { :form => bill_form, :address_type => 'billing', :address => @order.bill_address } %>
 
       <% end %>
     </div>
@@ -59,7 +59,7 @@
             <%= check_box_tag 'order[use_billing]', '1', @order.shipping_eq_billing_address? %>
             <%= label_tag :order_use_billing, "Use this as my shipping address", :id => 'use_billing' %>
           </p>
-          <%= render :partial => 'spree/address/form', :locals => { :form => ship_form, :address_type => 'shipping', :address => @order.ship_address } %>
+          <%= render :partial => 'spree/checkout/address/form', :locals => { :form => ship_form, :address_type => 'shipping', :address => @order.ship_address } %>
 
       <% end %>
     </div>
