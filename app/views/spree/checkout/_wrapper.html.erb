@@ -1,9 +1,17 @@
 <%= render :partial => 'spree/shared/error_messages', :locals => { :target => @order } %>
 
 <div class="row" data-hook="checkout_content">
-    <div class="<%= if @order.state != 'confirm' then 'col-md-8' else 'col-md-12' end %>" data-hook="checkout_form_wrapper">
+    <div class="<%= if @order.state != 'confirm' then 'col-md-9' else 'col-md-12' end %>" data-hook="checkout_form_wrapper">
 
-      <div data-hook="checkout_progress"><%= checkout_progress %></div>     
+      <%= render :partial => 'spree/shared/header_checkout' %>
+
+      <div data-hook="checkout_progress">
+        <% checkout_progress %>
+        <ul class="progress-steps nav nav-pills nav-justified" id="checkout-step-address">
+          <li class="active first"><a>1. Your Information</a></li>
+          <li class="last"><a>2. Payment Details</a></li>
+      </ul>
+      </div>
 
       <%= form_for @order, remote: true, :url => update_checkout_path(@order.state), :html => { :id => "checkout_form_#{@order.state}" } do |form| %>
 
@@ -11,7 +19,7 @@
       <% end %>
     </div>
     <% if @order.state != 'confirm' %>
-      <div id="checkout-summary" data-hook="checkout_summary_box" class="col-md-4">
+      <div id="checkout-summary" data-hook="checkout_summary_box" class="col-md-3">
         <%= render :partial => 'summary', :locals => { :order => @order } %>
       </div>
     <% end %>

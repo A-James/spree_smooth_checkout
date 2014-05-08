@@ -6,4 +6,18 @@
 }
 #lock-summary {
   top: 20px;
+  border-left: 1px solid #c0c0c0;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.2);
+  background: #fff;
+  height: 100vh;
+  padding: 20px;
+}
+.wide-container {
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+#checkout-header {
+  margin-top: 20px;
 }
