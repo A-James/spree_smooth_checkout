@@ -37,6 +37,8 @@ Manual Testing
 
 The gem includes a test Spree store that can be used for manual testing in the ./teststore directory.
 
+**Setting up the teststore**
+
 To run the teststore for the first time run the commands below. This will configure the database and add the required test data.
 
 ```shell
@@ -55,6 +57,8 @@ rails generate spree_bootstrap_frontend:install
 # Start the web server
 rails s
 ```
+
+**Starting the test store**
 
 From then onwards you should be able to just run from the teststore directory.
 
