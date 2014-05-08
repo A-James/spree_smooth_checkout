@@ -38,12 +38,12 @@
         <span class="glyphicon glyphicon-remove form-control-feedback"></span>
       </div>
     </div>
-  </div>
+    </div>
 <!--   <div class="hidden address-hidden"> -->
   <div class="form-group" id=<%="#{address_id}country" %>>
     <%= form.label :country_id, Spree.t(:country) %><br />
     <span id=<%="#{address_id}country-selection" %>>
-      <%= form.select :country_id, options_for_select(available_countries.map { |c| [c.name, c.id, { 'data-iso' => c.iso }] }, selected_key = form.object.country_id), {}, {:class => 'form-control required'} %>
+      <%= form.select :country_id, options_for_select(available_countries.map { |c| [c.name, c.id, { 'data-iso' => c.iso }] }, selected = form.object.country_id), {}, {:class => 'form-control required'} %>
     </span>
   </div>
 
@@ -53,7 +53,7 @@
       <%= form.label :state, Spree.t(:state) %><span class='required' id=<%="#{address_id}state-required"%>>*</span><br/>
 
       <% state_elements = [
-         form.select(:state_id, options_for_select(address.country.states.map { |s| [s.name, s.id, { 'data-abbr' => s.abbr }] }, selected_key = form.object.state_id ),
+         form.select(:state_id, options_for_select(address.country.states.map { |s| [s.name, s.id, { 'data-abbr' => s.abbr }] }, selected = form.object.state_id ),
                             {:include_blank => true},
                             {:class => have_states ? 'form-control required' : 'form-control hidden',
                             :disabled => !have_states}) +
