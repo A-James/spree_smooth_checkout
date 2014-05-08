@@ -2,21 +2,30 @@
 
 <div class="row" data-hook="checkout_content">
     <div class="<%= if @order.state != 'confirm' then 'col-md-9' else 'col-md-12' end %>" data-hook="checkout_form_wrapper">
+      
+      <div class="col-md-8">
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            1. Your Information
+          </div>
+        </div>
+        <div class="checkout-step-on">
+          <%= form_for @order, remote: true, :url => update_checkout_path(@order.state), :html => { :id => "checkout_form_#{@order.state}" } do |form| %>
 
-      <%= render :partial => 'spree/shared/header_checkout' %>
-
-      <div data-hook="checkout_progress">
-        <% checkout_progress %>
-        <ul class="progress-steps nav nav-pills nav-justified" id="checkout-step-address">
-          <li class="active first"><a>1. Your Information</a></li>
-          <li class="last"><a>2. Payment Details</a></li>
-      </ul>
+            <%= render @order.state, :form => form %>
+          <% end %>
+        </div>
       </div>
-
-      <%= form_for @order, remote: true, :url => update_checkout_path(@order.state), :html => { :id => "checkout_form_#{@order.state}" } do |form| %>
-
-        <%= render @order.state, :form => form %>
-      <% end %>
+      <div class="col-md-4">
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            2. Payment Details
+          </div>
+        </div>
+        <div class="checkout-step-off">
+          <%= render :partial => 'payment' %>
+        </div>
+      </div>
     </div>
     <% if @order.state != 'confirm' %>
       <div id="checkout-summary" data-hook="checkout_summary_box" class="col-md-3">

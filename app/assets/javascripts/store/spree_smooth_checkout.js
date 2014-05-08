@@ -2,9 +2,9 @@
 
 $( function() {
 
-  // $('#lock-summary')
+  $('#lock-summary')
 
-  //   .width($('#checkout-summary').width() - 10) //remove 10px for bootstrap negative margins
+    .width($('#checkout-summary').width() - 10) //remove 10px for bootstrap negative margins
 
   //   .affix({
   //     offset: {

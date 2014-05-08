@@ -5,12 +5,14 @@
   display: block !important;
 }
 #lock-summary {
-  top: 20px;
   border-left: 1px solid #c0c0c0;
   box-shadow: 0 0 50px rgba(0, 0, 0, 0.2);
   background: #fff;
   height: 100vh;
   padding: 20px;
+  margin-right: -15px;
+  position: fixed;
+  top: 0;
 }
 .wide-container {
   margin-right: auto;
@@ -19,5 +21,14 @@
   padding-right: 15px;
 }
 #checkout-header {
-  margin-top: 20px;
+  height: 100px;
+  background: $brand-secondary;
+  padding: 20px 0;
+  margin-bottom: 20px;
+}
+.checkout-step-off {
+  opacity: .2;
+}
+#logo img {
+  width: 200px;
 }
