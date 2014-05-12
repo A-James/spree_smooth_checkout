@@ -9,11 +9,24 @@
             1. Your Information
           </div>
         </div>
-        <div class="checkout-step-on">
-          <%= form_for @order, remote: true, :url => update_checkout_path(@order.state), :html => { :id => "checkout_form_#{@order.state}" } do |form| %>
+        <div class="checkout-step checkout-step-1 <% if @order.state == 'address' %>checkout-step-on<% else %>checkout-step-off<% end %>">
+          <div class="cover">
+            <div class="info">
+              <span>
+                Saved
+              </span>
+              <a href="/checkout/address" class="label label-primary pull-right">Edit</a>
+            </div>
+          </div>
 
-            <%= render @order.state, :form => form %>
+          <% if @order.state == 'address' %>
+            <%= form_for @order, :url => update_checkout_path(@order.state), :html => { :id => "checkout_form_#{@order.state}" } do |form| %>
+              <%= render @order.state, :form => form %>
+            <% end %>
+          <% else %>
+              <%= render :partial => 'dummyaddress' %>
           <% end %>
+
         </div>
       </div>
       <div class="col-md-4">
@@ -22,8 +35,17 @@
             2. Payment Details
           </div>
         </div>
-        <div class="checkout-step-off">
-          <%= render :partial => 'payment' %>
+        <div class="checkout-step checkout-step-2 <% if @order.state == 'address' %>checkout-step-off<% else %>checkout-step-on<% end %>">
+          <div class="cover"></div>
+
+          <% if @order.state == 'address' %>
+            <%= render :partial => 'payment' %>
+          <% else %>
+           <%= form_for @order, :url => update_checkout_path(@order.state), :html => { :id => "checkout_form_#{@order.state}" } do |form| %>
+             <%= render @order.state, :form => form %>
+           <% end %>
+          <% end %> 
+
         </div>
       </div>
     </div>

@@ -1,0 +1,91 @@
+<div class="row">
+  <div class="col-sm-6" data-hook="billing_fieldset_wrapper">
+    <h4>Your Information</h4>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group has-feedback" id="firstname">
+          <label for="order_firstname">First Name</label>
+          <br>
+          <input class="form-control required" id="order_firstname" name="order[firstname]" type="text">
+          <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+          <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group has-feedback" id="lastname">
+          <label for="order_lastname">Last Name</label>
+          <br>
+          <input class="form-control required" id="order_lastname" name="order[lastname]" type="text">
+          <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+          <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+        </div>
+      </div>
+    </div>
+    <div class="form-group has-feedback" id="phone">
+      <label for="order_phone">Phone</label>
+      <br>
+      <input class="form-control " id="order_phone" name="order[phone]" type="tel" value="">
+      <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+      <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+    </div>
+  </div>
+
+  <div class="col-sm-6" data-hook="shipping_fieldset_wrapper">
+
+    <div id="billing" data-hook="">
+      <h4>Your Address</h4>
+      
+
+          <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuw1U5hROHHHBxQ-qgLPm6MH2Tk-jvC-4&amp;sensor=false">
+</script><script src="https://maps.gstatic.com/intl/en_us/mapfiles/api-3/16/11/main.js" type="text/javascript"></script>
+
+<div class="inner" data-hook="billing_inner">
+  <div class="form-group has-feedback" id="baddress1">
+    <label for="order_bill_address_attributes_address1">First line of address</label><br>
+    <input class="form-control  required" id="order_bill_address_attributes_address1" name="order[bill_address_attributes][address1]" type="text">
+    <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+    <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+  </div>
+  <div class="form-group  has-feedback" id="baddress2">
+    <label for="order_bill_address_attributes_address2">Second line of address (optional)</label><br>
+    <input class="form-control" id="order_bill_address_attributes_address2" name="order[bill_address_attributes][address2]" type="text" value="">
+    <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+    <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group  has-feedback" id="bzipcode">
+        <label for="order_bill_address_attributes_zipcode">Post Code</label><br>
+        <input class="form-control required" id="order_bill_address_attributes_zipcode" name="order[bill_address_attributes][zipcode]" type="text">
+        <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+        <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+      </div>
+    </div>
+    <div class="col-md-6 address-hidden">
+      <div class="form-group  has-feedback" id="bcity">
+        <label for="order_bill_address_attributes_city">Town / City</label><br>
+        <input class="form-control required" id="order_bill_address_attributes_city" name="order[bill_address_attributes][city]" type="text">
+        <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+        <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+      </div>
+    </div>
+    </div>
+<!--   <div class="hidden address-hidden"> -->
+  <div class="form-group" id="bcountry">
+    <label for="order_bill_address_attributes_country_id">Country</label><br>
+    <span id="bcountry-selection">
+      <select class="form-control required" id="order_bill_address_attributes_country_id" name="order[bill_address_attributes][country_id]"></select>
+    </span>
+  </div>
+
+    <div class="form-group" id="bstate" style="display: none;">
+      <label for="order_bill_address_attributes_state">County</label><span class="required" id="bstate-required">*</span><br>
+
+</div>
+
+
+</div>
+  </div>
+  </div>
+</div>

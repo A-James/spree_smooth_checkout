@@ -3,6 +3,7 @@
   }
 .has-success .form-control-feedback.glyphicon-ok, .has-error .form-control-feedback.glyphicon-remove {
   display: block !important;
+  top: 31px;
 }
 #lock-summary {
   border-left: 1px solid #c0c0c0;
@@ -26,9 +27,35 @@
   padding: 20px 0;
   margin-bottom: 20px;
 }
-.checkout-step-off {
-  opacity: .2;
-}
 #logo img {
   width: 200px;
+}
+.checkout-step {
+  overflow: hidden;
+  position: relative;
+}
+.checkout-step-off {
+  .cover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width:100%;
+    height: 1000px;
+    background: rgba(255,255,255,.85);
+    z-index: 9;
+
+    .info {
+      margin: 40px auto 0 auto;
+      width: 50%;
+      background: #fff;
+      border-radius: 5px;
+      padding: 20px;
+      border: 1px solid #c0c0c0;
+    }
+  }
+}
+.checkout-step-on {
+  .cover {
+    display: none;
+  }
 }
