@@ -8,7 +8,7 @@
     <% end %>
   </td>
   <td class="cart-item-description text-right" data-hook="cart_item_description">
-    <%= link_to line_item.name, product_path(variant.product) %><br/>
+    <%= line_item.name %><br/>
     <%= Spree.t(:quantity_with_cost, quantity: line_item.quantity, cost: line_item.single_money.to_html) %>
     <br/><%= link_to Spree.t(:edit), cart_path %>
   </td>
