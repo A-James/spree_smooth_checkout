@@ -1,0 +1,6 @@
+nl:
+  spree:
+    quantity_with_cost: "%{quantity} x %{cost}"
+    and_x_more: "en %{count} meer"
+    place_order_now: "Plaats uw bestelling nu"
+    twenty_percent_off: "20% korting"

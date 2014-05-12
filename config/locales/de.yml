@@ -1,0 +1,6 @@
+de:
+  spree:
+    quantity_with_cost: "%{quantity} x %{cost}"
+    and_x_more: "und %{count} mehr"
+    place_order_now: "Legen Sie jetzt bestellen"
+    twenty_percent_off: "20% Rabatt"
