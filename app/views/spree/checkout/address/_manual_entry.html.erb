@@ -1,3 +1,5 @@
+<% address_id = address_type.chars.first %>
+
 <% if Spree::Config[:company] %>
   <div class="form-group" id=<%= "#{address_id}company" %>>
     <%= form.label :company, Spree.t(:company) %>

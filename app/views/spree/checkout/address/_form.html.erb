@@ -1,10 +1,11 @@
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuw1U5hROHHHBxQ-qgLPm6MH2Tk-jvC-4&sensor=false">
 </script>
 
+<% address_id = address_type.chars.first %>
 <div class="inner" data-hook=<%="#{address_type}_inner" %>>
 
-  <%= render :partial => 'spree/checkout/address/manual_entry', :locals => {:form => form, :address_type => address_type, :address => address} %>
+  <%= render :partial => 'spree/checkout/address/manual_entry', :locals => {:form => form, :address_id => address_id, :address_type => address_type, :address => address} %>
 
-  <%= render :partial => 'spree/checkout/address/country_selector', :locals => {:form => form, :address_type => address_type, :address => address} %>
+  <%= render :partial => 'spree/checkout/address/country_selector', :locals => {:form => form, :address_id => address_id, :address_type => address_type, :address => address} %>
 
 </div>
