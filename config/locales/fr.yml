@@ -1,5 +1,5 @@
 fr:
   spree:
-    quantity_with_cost: "%{quantity} x %{cost}"
+    quantity_with_cost_html: "%{quantity} x %{cost}"
     and_x_more: "et %{count} plus"
     place_order_now: "Placez commandez maintenant"
