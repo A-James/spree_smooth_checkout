@@ -2,8 +2,8 @@
 
 <div class="row" data-hook="checkout_content">
     <div class="<%= if @order.state != 'confirm' then 'col-md-9' else 'col-md-12' end %>" data-hook="checkout_form_wrapper">
-      
-      <div class="col-md-8 <% if @order.state == 'address' %>hidden-xs<% end %>">
+
+      <div class="col-md-8">
         <div class="panel panel-primary">
           <div class="panel-heading">
             1. Your Information
@@ -29,7 +29,7 @@
 
         </div>
       </div>
-      <div class="col-md-4">
+      <div class="col-md-4 <%= if @order.state == 'address'; "hidden-xs" end %>">
         <div class="panel panel-primary">
           <div class="panel-heading">
             2. Payment Details
@@ -44,7 +44,7 @@
            <%= form_for @order, :url => update_checkout_path(@order.state), :html => { :id => "checkout_form_#{@order.state}" } do |form| %>
              <%= render @order.state, :form => form %>
            <% end %>
-          <% end %> 
+          <% end %>
 
         </div>
       </div>
