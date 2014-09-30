@@ -44,7 +44,7 @@
 
   <div class="col-sm-6" data-hook="shipping_fieldset_wrapper">
     <div id="billing" data-hook>
-      <h4>Your Address</h4>
+      <h4>Billing Address</h4>
       <%= form.fields_for :bill_address do |bill_form| %>
 
           <%= render :partial => 'spree/checkout/address/form', :locals => { :form => bill_form, :address_type => 'billing', :address => @order.bill_address } %>
