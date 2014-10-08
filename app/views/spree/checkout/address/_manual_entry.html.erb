@@ -8,16 +8,16 @@
   </div>
 <% end %>
 <div class="form-group has-feedback" id=<%= "#{address_id}address1" %>>
-  <%= form.label :address1, "Billing Address line 1" %> <sup>(Street address, P.O. box, company name)</sup>
+  <%= form.label :address1, "Address line 1" %> 
   <br/>
-  <%= form.text_field :address1, :class => 'form-control  required' %>
+  <%= form.text_field :address1, :class => 'form-control  required', :placeholder => '(Street address, P.O. box, company name)' %>
   <span class="glyphicon glyphicon-ok form-control-feedback"></span>
   <span class="glyphicon glyphicon-remove form-control-feedback"></span>
 </div>
 <div class="form-group  has-feedback" id=<%= "#{address_id}address2" %>>
-  <%= form.label :address2, "Billing Address line 2" %> <sup>(Apartment, suite, unit, building, floor, etc.)</sup>
+  <%= form.label :address2, "Address line 2" %>
   <br/>
-  <%= form.text_field :address2, :class => 'form-control' %>
+  <%= form.text_field :address2, :class => 'form-control', :placeholder => '(Apartment, suite, unit, building, floor, etc.)' %>
   <span class="glyphicon glyphicon-ok form-control-feedback"></span>
   <span class="glyphicon glyphicon-remove form-control-feedback"></span>
 </div>
