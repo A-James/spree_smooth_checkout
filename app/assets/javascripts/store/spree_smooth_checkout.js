@@ -6,9 +6,9 @@ $( function() {
 
     .width($('#checkout-summary').width() - 10) //remove 10px for bootstrap negative margins
 
-  $('#add-discount-code').on('click', function(){
-    $('#discount-code').removeClass('hidden');
-  });
+  // $('#add-discount-code').on('click', function(){
+  //   $('#discount-code').removeClass('hidden');
+  // });
 
   // $("#checkout_form_address")
   // .on("ajax:beforeSend", function(e, xhr, status, error){
@@ -28,6 +28,10 @@ $( function() {
   //    $("#new_post").append("<p>ERROR</p>");
   //   });
 
+  $('form.edit_order input').on('keyup blur paste', function() {
+    $('form.edit_order').find(':submit, :image').attr('disabled', false).removeClass('disabled');
+  });
+
 });
 
 $.validator.setDefaults({
@@ -41,6 +45,9 @@ $.validator.setDefaults({
     errorClass: 'help-block',
     errorPlacement: function(error, element) {}
 });
+
+
+
 
 //------ below line moved in from page, doesn't work here yet
 
