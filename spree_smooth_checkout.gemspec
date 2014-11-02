@@ -16,8 +16,8 @@ Gem::Specification.new do |s|
   s.require_path = 'lib'
   s.requirements << 'none'
 
-  s.add_dependency 'spree_core', '~> 2.1.7'
-  s.add_dependency 'spree_frontend', '~> 2.1.7'
+  s.add_dependency 'spree_core', '~> 2.4.0.rc3'
+  s.add_dependency 'spree_frontend', '~> 2.4.0.rc3'
   s.add_dependency 'spree_bootstrap_frontend', '~> 2.1'
 
   s.add_development_dependency 'sass-rails'
