@@ -18,8 +18,8 @@ Spree::CheckoutController.class_eval do
     # The summary section should not transition the
     # order, it's only expected to update the order
 
-    if @order.update_attributes(object_params)
-      persist_user_address
+    if @order.update_from_params(params, permitted_checkout_attributes, request.headers.env)
+      @order.temporary_address = !params[:save_user_address]
 
       respond_to do |format|
         format.html { redirect_to checkout_state_path(@order.state) }
@@ -37,11 +37,9 @@ Spree::CheckoutController.class_eval do
     if params[:order] && params[:order][:coupon_code]
       @order.coupon_code = params[:order][:coupon_code]
 
-      coupon_result = Spree::Promo::CouponApplicator.new(@order).apply
-      if coupon_result[:coupon_applied?]
-        flash[:success] = coupon_result[:success] if coupon_result[:success].present?
-      else
-        flash.now[:error] = coupon_result[:error]
+      handler = PromotionHandler::Coupon.new(@order).apply
+      if handler.error.present?
+        flash.now[:error] = handler.error
         ## Spree_smooth_checkout specific
         # Added format.js:
         # apply_coupon_code breaks when called in an AJAX request
@@ -57,8 +55,9 @@ Spree::CheckoutController.class_eval do
             end
           }
         end
-
         ## Spree_smooth_checkout specific - FIN
+      elsif handler.success
+        flash[:success] = handler.success
       end
     end
   end
