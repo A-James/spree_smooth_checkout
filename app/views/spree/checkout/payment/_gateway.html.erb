@@ -26,7 +26,5 @@
   </div>
 
   <%= hidden_field_tag "#{param_prefix}[cc_type]", '', :id => "cc_type", :class => 'ccType' %>
-
-  <%= hidden_field param_prefix, 'first_name', :value => @order.billing_firstname %>
-  <%= hidden_field param_prefix, 'last_name', :value => @order.billing_lastname %>
+  <%= hidden_field_tag "#{param_prefix}[name]", "#{@order.billing_firstname} #{@order.billing_lastname}", { id: "name_on_card_#{payment_method.id}"} %>
 </div>
