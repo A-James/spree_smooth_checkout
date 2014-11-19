@@ -18,9 +18,6 @@
       <% end %>
     </tbody>
     <tbody>
-      <% ### Spree_smooth_checkout_specific ###
-         # This could be extracted into a partial but I'm leaving it
-         # like this until the structure of the HTML is decided.   %>
       <% if order.passed_checkout_step?("delivery") && order.shipments.any? %>
         <%= form_for @order, remote: true, :url => update_checkout_path(@order.state), :html => {:id => "checkout_form_#{@order.state}"} do |form| %>
             <%= form.hidden_field :state_lock_version %>
@@ -72,7 +69,6 @@
             <% end %>
         <% end %>
       <% end %>
-      <% ### Spree_smooth_checkout_specific - FIN ###   %>
     </tbody>
     <tbody>
       <tr data-hook="order_total">
@@ -83,15 +79,11 @@
     <tbody>
   </table>
 
-  <% ### Spree_smooth_checkout_specific ###
-   # This could be extracted into a partial but I'm leaving it
-   # like this until the structure of the HTML is decided.  %>
   <% if Spree::Promotion.coupons.count >= 0 %>
     <div class="hidden" id="discount-code">
       <%= form_for @order, remote: true, :url => update_checkout_path(@order.state), :html => {:id => "checkout_form_#{@order.state}"} do |form| %>
           <input type="hidden" name="is_summary" id="is_summary" value="true"/>
           <div class="input-group pull-right" data-hook='coupon_code'>
-            <% # Blank value to stop the coupon code just entered being shown again. %>
             <%= form.text_field :coupon_code, :value => '', :class => 'form-control', :placeholder => "Discount code" %>
             <span class="input-group-btn">
               <%= submit_tag Spree.t(:update), :class => 'btn btn-success' %>
@@ -101,7 +93,6 @@
         <% end %>
     </div>
   <% end %>
-  <% ### Spree_smooth_checkout_specific - FIN ###  %>
 
   <div class="text-right">
     <a href="/faq">FAQs &amp; Shipping info</a>
