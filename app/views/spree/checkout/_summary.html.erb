@@ -5,10 +5,11 @@
 
     <tbody>
       <tr data-hook="item_total">
-          <td><%= Spree.t(:item_total) %></td>
-          <td class="text-right"><%= order.display_item_total.to_html %></td>
+        <td><%= Spree.t(:item_total) %></td>
+        <td class="text-right"><%= order.display_item_total.to_html %></td>
       </tr>
     </tbody>
+
     <tbody id="summary-order-charges" data-hook>
       <% order.all_adjustments.nonzero.eligible.each do |adjustment| %>
         <tr>
@@ -17,6 +18,7 @@
         </tr>
       <% end %>
     </tbody>
+
     <tbody>
       <% if order.passed_checkout_step?("delivery") && order.shipments.any? %>
         <%= form_for order, remote: true, :url => update_checkout_path(order.state), :html => {:id => "checkout_form_#{order.state}"} do |form| %>
@@ -70,6 +72,7 @@
         <% end %>
       <% end %>
     </tbody>
+    
     <tbody>
       <tr data-hook="order_total">
         <td><%= Spree.t(:order_total) %></td>
