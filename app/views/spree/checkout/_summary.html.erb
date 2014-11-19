@@ -30,7 +30,7 @@
                 </tr>
                 <tr>
                   <td colspan="2">
-                    <%= form.fields_for :shipments, shipment do |ship_form| %>
+                    <% form.fields_for :shipments, shipment do |ship_form| %>
                         <% ship_form.object.shipping_rates.each do |rate| %>
                             <li class="list-group-item shipping-method">
                               <label>
