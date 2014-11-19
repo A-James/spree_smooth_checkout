@@ -81,6 +81,7 @@
   <% if Spree::Promotion.coupons.count >= 0 %>
     <div class="hidden" id="discount-code">
       <%= form_for order, remote: true, :url => update_checkout_path(order.state), :html => {:id => "checkout_form_#{order.state}"} do |form| %>
+        <%= form.hidden_field :state_lock_version %>
         <input type="hidden" name="is_summary" id="is_summary" value="true"/>
         <div class="input-group pull-right" data-hook='coupon_code'>
           <%= form.text_field :coupon_code, :value => '', :class => 'form-control', :placeholder => "Discount code" %>
