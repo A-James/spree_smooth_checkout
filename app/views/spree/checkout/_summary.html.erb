@@ -1,56 +1,54 @@
-<div id="lock-summary" class="hidden-xs hidden-sm">
+<%= form_for @order, remote: true, :url => update_checkout_path(@order.state), :html => {:id => "checkout_form_#{@order.state}"} do |form| %>
+  <div id="lock-summary" class="hidden-xs hidden-sm">
 
-  <table data-hook="order_summary" class="table cart-summary">
-    <%= render partial: 'spree/checkout/summary/line_items', locals: {order: @order} %>
+    <table data-hook="order_summary" class="table cart-summary">
+      <%= render partial: 'spree/checkout/summary/line_items', locals: {order: @order} %>
 
-    <tbody>
-    <tr data-hook="item_total">
-        <td><%= Spree.t(:item_total) %></td>
-        <td class="text-right"><%= order.display_item_total.to_html %></td>
-    </tr>
-    <tbody id="summary-order-charges" data-hook>
-      <% order.adjustments.eligible.each do |adjustment| %>
-        <% next if (adjustment.originator_type == 'Spree::TaxRate') and (adjustment.amount == 0) %>
-        <% ### Spree_smooth_checkout_specific ###
-           # Shipping methods are displayed below. %>
-        <% next if (adjustment.originator_type == 'Spree::ShippingMethod') %>
-        <% ### Spree_smooth_checkout_specific - FIN ###   %>
-        <tr>
-            <td><%= adjustment.label %> </td>
-            <td class="text-right"><%= adjustment.display_amount.to_html %></td>
+      <tbody>
+        <tr data-hook="item_total">
+            <td><%= Spree.t(:item_total) %></td>
+            <td class="text-right"><%= @order.display_item_total.to_html %></td>
         </tr>
-      <% end %>
-      <% ### Spree_smooth_checkout_specific ###
-         # This could be extracted into a partial but I'm leaving it
-         # like this until the structure of the HTML is decided.   %>
-      <% shipping_adjustments = order.adjustments.eligible.select { |a| a.originator_type == 'Spree::ShippingMethod' } %>
-      <% order_has_shipments = shipping_adjustments.any? { |a| a.originator_type == 'Spree::ShippingMethod' } %>
-      <% if order_has_shipments %>
-        <%= form_for @order, remote: true, :url => update_checkout_path(@order.state), :html => {:id => "checkout_form_#{@order.state}"} do |form| %>
+      </tbody>
+      <tbody id="summary-order-charges" data-hook>
+        <% @order.adjustments.eligible.each do |adjustment| %>
+          <% next if (adjustment.originator_type == 'Spree::TaxRate') and (adjustment.amount == 0) %>
+          <% ### Spree_smooth_checkout_specific ###
+             # Shipping methods are displayed below. %>
+          <% next if (adjustment.originator_type == 'Spree::ShippingMethod') %>
+          <% ### Spree_smooth_checkout_specific - FIN ###   %>
+          <tr>
+              <td><%= adjustment.label %> </td>
+              <td class="text-right"><%= adjustment.display_amount.to_html %></td>
+          </tr>
+        <% end %>
+
+        <% shipping_adjustments = @order.adjustments.eligible.select { |a| a.originator_type == 'Spree::ShippingMethod' } %>
+        <% order_has_shipments = shipping_adjustments.any? { |a| a.originator_type == 'Spree::ShippingMethod' } %>
+        <% if order_has_shipments %>
             <input type="hidden" name="is_summary" id="is_summary" value="true"/>
-            <% form.object.shipments.each do |shipment| %>
-                <% adjustment = shipping_adjustments.find { |a| a.source_id == shipment.id } %>
-                <tr>
-                  <td><%= adjustment.label %>:</td>
-                  <td class="text-right"><%= adjustment.display_amount.to_html %></td>
-                </tr>
-                <% if shipment.shipping_rates.count > 1 %>
-                    <tr>
-                      <td colspan="2">
-                        <%= form.fields_for shipment do |ship_form| %>
-                            <% ship_form.object.shipping_rates.each do |rate| %>
-                                <li class="list-group-item shipping-method">
-                                  <label>
-                                    <%= ship_form.radio_button :selected_shipping_rate_id, rate.id %>
-                                    <span class="rate-name"><%= rate.name %></span>
-                                    <span class="badge rate-cost"><%= rate.display_cost %></span>
-                                  </label>
-                                </li>
-                            <% end %>
-                        <% end %>
-                      </td>
-                    </tr>
-                <% end %>
+            <%= form.fields_for :shipments do |ship_fields| %>
+              <% shipment = ship_fields.object %>
+              <% adjustment = shipping_adjustments.find { |a| a.source_id == shipment.id } %>
+              <tr>
+                <td><%= adjustment.label %>:</td>
+                <td class="text-right"><%= adjustment.display_amount.to_html %></td>
+              </tr>
+              <% if shipment.shipping_rates.count > 1 %>
+                  <tr>
+                    <td colspan="2">
+                      <% shipment.shipping_rates.each do |rate| %>
+                          <li class="list-group-item shipping-method">
+                            <label>
+                              <%= ship_fields.radio_button :selected_shipping_rate_id, rate.id %>
+                              <span class="rate-name"><%= rate.name %></span>
+                              <span class="badge rate-cost"><%= rate.display_cost %></span>
+                            </label>
+                          </li>
+                      <% end %>
+                    </td>
+                  </tr>
+              <% end %>
             <% end %>
             <% shipments_or_shipping_instructions_can_be_updated = form.object.shipments.any? { |s| s.shipping_rates.count > 1 } || Spree::Config[:shipping_instructions] %>
             <% if shipments_or_shipping_instructions_can_be_updated %>
@@ -69,35 +67,31 @@
                 </tr>
             <% end %>
         <% end %>
-      <% end %>
-      <% ### Spree_smooth_checkout_specific - FIN ###   %>
-    </tbody>
-    <tr data-hook="order_total">
-        <td><%= Spree.t(:order_total) %></td>
-        <td class="text-right"><span id='summary-order-total'><h4><%= @order.display_total.to_html %></h4><!-- <a id="add-discount-code" href="#" class="label label-primary">+ Add Discount code</a></span> -->
-              </div>
-            </td>
-        </tr>
 
-    <% if order.line_item_adjustment_totals.present? %>
-      <tbody id="price-adjustments" data-hook="order_details_price_adjustments">
-        <% @order.line_item_adjustment_totals.each do |label, total| %>
-          <tr class="total">
-              <td><%= label %></td>
-              <td class="text-right"><span><%= total.to_html %></span></td>
-          </tr>
-        <% end %>
       </tbody>
-    <% end %>
-  </tbody>
-</table>
+      <tbody>
+        <tr data-hook="order_total">
+          <td><%= Spree.t(:order_total) %></td>
+          <td class="text-right">
+            <h4><span id='summary-order-total'><%= @order.display_total.to_html %></span></h4>
+          </td>
+        </tr>
+      </tbody>
 
-  <% ### Spree_smooth_checkout_specific ###
-   # This could be extracted into a partial but I'm leaving it
-   # like this until the structure of the HTML is decided.  %>
-  <% if Spree::Promotion.with_code.count >= 0 %>
-  <div class="hidden" id="discount-code">
-    <%= form_for @order, remote: true, :url => update_checkout_path(@order.state), :html => {:id => "checkout_form_#{@order.state}"} do |form| %>
+      <% if @order.line_item_adjustment_totals.present? %>
+        <tbody id="price-adjustments" data-hook="order_details_price_adjustments">
+          <% @order.line_item_adjustment_totals.each do |label, total| %>
+            <tr class="total">
+                <td><%= label %></td>
+                <td class="text-right"><span><%= total.to_html %></span></td>
+            </tr>
+          <% end %>
+        </tbody>
+      <% end %>
+    </table>
+
+    <% if Spree::Promotion.with_code.count >= 0 %>
+      <div class="hidden" id="discount-code">
         <input type="hidden" name="is_summary" id="is_summary" value="true"/>
         <div class="input-group pull-right" data-hook='coupon_code'>
           <% # Blank value to stop the coupon code just entered being shown again. %>
@@ -107,14 +101,16 @@
           </span>
         </div>
         <br/><br/>
-    </div>
-          
-      <% end %>
-  <% end %>
-  <% ### Spree_smooth_checkout_specific - FIN ###  %>
+      </div>
+    <% end %>
 
-  <div class="text-right">
-      <a href="/faq">FAQs &amp; Shipping info</a>
+    <div class="text-right">
+        <a href="/faq">FAQs &amp; Shipping info</a>
+    </div>
+
   </div>
 
-</div>
+  <script type="text/javascript">
+    $('#lock-summary').width($('#checkout-summary').width() - 10) //remove 10px for bootstrap negative margins
+  </script>
+<% end %>

@@ -2,10 +2,6 @@
 
 $( function() {
 
-  $('#lock-summary')
-
-    .width($('#checkout-summary').width() - 10) //remove 10px for bootstrap negative margins
-
   // $('#add-discount-code').on('click', function(){
   //   $('#discount-code').removeClass('hidden');
   // });
@@ -16,10 +12,10 @@ $( function() {
   //   })
   //   .on("ajax:success", function(e, data, status, xhr){
   //    console.log(data);
-  //    var summary = 
-  //      "<strong>" + $('#order_firstname').val() + " " + 
-  //      $("#order_lastname").val() + "</strong><br/>" + 
-  //      $("#order_bill_address_attributes_address1").val() + ", " + 
+  //    var summary =
+  //      "<strong>" + $('#order_firstname').val() + " " +
+  //      $("#order_lastname").val() + "</strong><br/>" +
+  //      $("#order_bill_address_attributes_address1").val() + ", " +
   //      $("#order_bill_address_attributes_city").val() + "<br/>";
   //    $('.checkout-step').toggleClass('checkout-step-off').toggleClass('checkout-step-on');
   //    $('.info span').html(summary);
@@ -104,7 +100,7 @@ $.validator.setDefaults({
 //       $('#order_bill_address_attributes_city').val(finalCity);
 
 //     }
-    
+
 //   });
 
 // }
