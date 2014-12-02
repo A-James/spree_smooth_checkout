@@ -2,7 +2,7 @@ Spree::CheckoutController.class_eval do
   alias_method :permitted_checkout_attributes_original, :permitted_checkout_attributes
 
   def permitted_checkout_attributes
-    permistted_checkout_attributes_original + permitted_personal_information_attributes
+    permitted_checkout_attributes_original + permitted_personal_information_attributes
   end
 
   # Custom fields for specifying personal information.

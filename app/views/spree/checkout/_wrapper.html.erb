@@ -45,10 +45,10 @@
           <% if @order.state == 'address' %>
             <%= render :partial => 'payment' %>
           <% else %>
-           <%= form_for @order, :url => update_checkout_path(@order.state), :html => { :id => "checkout_form_#{@order.state}" } do |form| %>
-            <%= form.hidden_field :state_lock_version %>
-             <%= render @order.state, :form => form %>
-           <% end %>
+            <%= form_for @order, :url => update_checkout_path(@order.state), :html => { :id => "checkout_form_#{@order.state}" } do |form| %>
+              <%= form.hidden_field :state_lock_version %>
+              <%= render @order.state, :form => form %>
+            <% end %>
           <% end %>
 
         </div>
@@ -56,7 +56,7 @@
     </div>
     <% if @order.state != 'confirm' %>
       <div id="checkout-summary" data-hook="checkout_summary_box" class="col-md-3">
-        <%= render :partial => 'summary', :locals => { :order => @order } %>
+        <%= render :partial => 'summary', :locals => { order: @order } %>
       </div>
     <% end %>
 </div>
