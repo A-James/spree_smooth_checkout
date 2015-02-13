@@ -9,7 +9,16 @@
   </head>
   <body class="<%= body_class %>" id="<%= @body_id || 'checkout' %>" data-hook="body">
 
-    <div class="container">
+    <header id="header" data-hook>
+      <div class="container-fluid">
+
+        <div id="top-bar" class="clearfix hidden-xs">
+
+          <canvas id="bowhurst-curve" height="100" width="200"></canvas>
+          <a href="/" id="bowhurst-logo" class="hidden-xs"></a>
+
+      </div>
+    </header>
 
       <div class="row" data-hook>
 
@@ -21,8 +30,6 @@
         <%= yield :templates %>
 
       </div>
-
-    </div>
 
     <%= render :partial => 'spree/shared/google_analytics' %>
     <script>

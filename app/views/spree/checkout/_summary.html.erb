@@ -1,5 +1,9 @@
 <div id="lock-summary" class="hidden-xs hidden-sm">
 
+  <div id="cart-header">
+    <span>My Shopping Bag Summary</span>
+  </div>
+
   <table data-hook="order_summary" class="table cart-summary">
     <%= render partial: 'spree/checkout/summary/line_items', locals: {order: order} %>
 

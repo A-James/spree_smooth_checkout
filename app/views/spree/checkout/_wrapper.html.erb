@@ -9,9 +9,6 @@
             1. Your Information
           </div>
         </div>
-        <div>
-          <%= checkout_progress %>
-        </div>
         <div class="checkout-step checkout-step-1 <% if @order.state == 'address' %>checkout-step-on<% else %>checkout-step-off<% end %>">
           <div class="cover">
             <div class="info">
