@@ -83,6 +83,12 @@
         <td class="text-right"><h4><span id='summary-order-total'><%= order.display_total.to_html %></span></h4></td>
       </tr>
     <tbody>
+
+    <tbody>
+      <tr data-hook="order_total">
+        <td colspan="2"><a href="/shipping" target="_blank">Shipping info</a></td>
+      </tr>
+    <tbody>
   </table>
 
   <% if Spree::Promotion.coupons.count >= 0 %>
@@ -101,7 +107,4 @@
     </div>
   <% end %>
 
-  <div class="text-right">
-    <a href="/faq">FAQs &amp; Shipping info</a>
-  </div>
 </div>
