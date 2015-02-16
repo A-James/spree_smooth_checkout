@@ -14,21 +14,35 @@
           <div class="cover">
             <div class="info clearfix">
               <span>
-                <p class="name">Alex James</p>
-                <div>foo@bar.de - 123456789</div>
-                <div id="output-billing">
-                  <strong>Shipping Address</strong><br/>
-                  50 Devon mansions<br/>
-                  Tooley Street<br/>
-                  SE12ND, London<br/>
-                  England
-                </div>
+                <p class="name"><%= @order.name %></p>
+                <div><%= "#{@order.email} - #{@order.phone}" %></div>
                 <div id="output-shipping">
+                  <strong>Shipping Address</strong><br/>
+                  <%= @order.ship_address.address1 %><br/>
+                  <% if @order.ship_address.address2.present? %>
+                    <%= @order.ship_address.address2 %><br/>
+                  <% end %>
+                  <% if @order.ship_address.state %>
+                    <%= @order.ship_address.city %><br />
+                    <%= @order.ship_address.state_text %> <%= @order.ship_address.zipcode %><br />
+                  <% else %>
+                    <%= @order.ship_address.city %>, <%= @order.ship_address.zipcode %><br/>
+                  <% end %>
+                  <%= @order.ship_address.country %>
+                </div>
+                <div id="output-billing">
                   <strong>Billing Address</strong><br/>
-                  50 Devon mansions<br/>
-                  Tooley Street<br/>
-                  SE12ND, London<br/>
-                  England
+                  <%= @order.bill_address.address1 %><br/>
+                  <% if @order.bill_address.address2.present? %>
+                    <%= @order.bill_address.address2 %><br/>
+                  <% end %>
+                  <% if @order.bill_address.state %>
+                    <%= @order.bill_address.city %><br />
+                    <%= @order.bill_address.state_text %> <%= @order.bill_address.zipcode %><br />
+                  <% else %>
+                    <%= @order.bill_address.city %>, <%= @order.bill_address.zipcode %><br/>
+                  <% end %>
+                  <%= @order.bill_address.country %>
                 </div>
               </span>
               <a href="/checkout/address" class="btn btn-primary btn-xs pull-right no-pjax">Edit</a>
