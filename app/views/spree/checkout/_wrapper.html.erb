@@ -15,7 +15,7 @@
             <div class="info clearfix">
               <span>
                 <p class="name"><%= @order.name %></p>
-                <div><%= "#{@order.email} - #{@order.phone}" %></div>
+                <div><%= "#{@order.email}" %><%= " - #{@order.phone}" if @order.phone.present? %></div>
                 <% [[:ship, @order.ship_address], [:bill, @order.bill_address]].each do |(address_type, address)| %>
                   <% address_type_text = address_type == :ship ? "Shipping" : "Billing" %>
                   <div id="output-<%= address_type_text.downcase %>">
