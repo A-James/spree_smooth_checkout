@@ -16,34 +16,23 @@
               <span>
                 <p class="name"><%= @order.name %></p>
                 <div><%= "#{@order.email} - #{@order.phone}" %></div>
-                <div id="output-shipping">
-                  <strong>Shipping Address</strong><br/>
-                  <%= @order.ship_address.address1 %><br/>
-                  <% if @order.ship_address.address2.present? %>
-                    <%= @order.ship_address.address2 %><br/>
-                  <% end %>
-                  <% if @order.ship_address.state %>
-                    <%= @order.ship_address.city %><br />
-                    <%= @order.ship_address.state_text %> <%= @order.ship_address.zipcode %><br />
-                  <% else %>
-                    <%= @order.ship_address.city %>, <%= @order.ship_address.zipcode %><br/>
-                  <% end %>
-                  <%= @order.ship_address.country %>
-                </div>
-                <div id="output-billing">
-                  <strong>Billing Address</strong><br/>
-                  <%= @order.bill_address.address1 %><br/>
-                  <% if @order.bill_address.address2.present? %>
-                    <%= @order.bill_address.address2 %><br/>
-                  <% end %>
-                  <% if @order.bill_address.state %>
-                    <%= @order.bill_address.city %><br />
-                    <%= @order.bill_address.state_text %> <%= @order.bill_address.zipcode %><br />
-                  <% else %>
-                    <%= @order.bill_address.city %>, <%= @order.bill_address.zipcode %><br/>
-                  <% end %>
-                  <%= @order.bill_address.country %>
-                </div>
+                <% [[:ship, @order.ship_address], [:bill, @order.bill_address]].each do |(address_type, address)| %>
+                  <% address_type_text = address_type == :ship ? "Shipping" : "Billing" %>
+                  <div id="output-<%= address_type_text.downcase %>">
+                    <strong><%= address_type_text %> Address</strong><br/>
+                    <%= address.address1 %><br/>
+                    <% if address.address2.present? %>
+                      <%= address.address2 %><br/>
+                    <% end %>
+                    <% if address.country.states_required %>
+                      <%= address.city %><br />
+                      <%= address.state_text %> <%= address.zipcode %><br />
+                    <% else %>
+                      <%= address.city %>, <%= address.zipcode %><br/>
+                    <% end %>
+                    <%= address.country %>
+                  </div>
+                <% end %>
               </span>
               <a href="/checkout/address" class="btn btn-primary btn-xs pull-right no-pjax">Edit</a>
             </div>
