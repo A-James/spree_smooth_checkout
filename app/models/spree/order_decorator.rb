@@ -3,6 +3,17 @@ Spree::Order.class_eval do
       after_transition :to => :delivery, :do => :skip_delivery
     end
 
+    # This has been overridden to clone the shipping address instead of Spree's
+    # default of the billing address.
+    def clone_billing_address
+      if ship_address and self.bill_address.nil?
+        self.bill_address = ship_address.clone
+      else
+        self.bill_address.attributes = ship_address.attributes.except('id', 'updated_at', 'created_at')
+      end
+      true
+    end
+
     # Force the confirmation screen to never appear.
     # The checkout pages have been modified so that
     # the customer always knows what they're buying.
