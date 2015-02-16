@@ -44,9 +44,8 @@
              <%= render @order.state, :form => form %>
             <% end %>
           <% else %>
-              <%= render :partial => 'dummyaddress' %>
+            <%= render :partial => 'dummyaddress' %>
           <% end %>
-
         </div>
       </div>
       <div class="col-md-5 <%= if @order.state == 'address'; "hidden-xs" end %>">

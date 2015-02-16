@@ -1,17 +1,13 @@
 <div class="row">
   <div class="col-sm-6 your-details" data-hook="billing_fieldset_wrapper">
     <h4>Your Details</h4>
-    <% unless @order.email? %>
-
-       <div class="form-group has-feedback" id="email">
-        <%= form.label :email %>
-        <br />
-        <%= form.text_field :email, class: "form-control required email" %>
-        <span class="icon-ok form-control-feedback"></span>
-        <span class="icon-cancel-1 form-control-feedback"></span>
-      </div>
-
-    <% end %>
+     <div class="form-group has-feedback" id="email">
+      <%= form.label :email %>
+      <br />
+      <%= form.text_field :email, class: "form-control required email" %>
+      <span class="icon-ok form-control-feedback"></span>
+      <span class="icon-cancel-1 form-control-feedback"></span>
+    </div>
 
     <div class="row">
       <div class="col-md-6">
