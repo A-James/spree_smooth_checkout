@@ -3,7 +3,7 @@
 <div class="row" data-hook="checkout_content">
     <div class="<%= if @order.state != 'confirm' then 'col-md-9' else 'col-md-12' end %>" data-hook="checkout_form_wrapper">
 
-      <div class="col-md-8 your-info">
+      <div class="col-md-7 your-info">
         <div class="checkout-step checkout-step-1 <% if @order.state == 'address' %>checkout-step-on<% else %>checkout-step-off<% end %>">
           <div class="panel panel-primary">
             <div class="panel-heading">
@@ -11,11 +11,26 @@
             </div>
           </div>
           <div class="cover">
-            <div class="info">
+            <div class="info clearfix">
               <span>
-                Saved
+                <p class="name">Alex James</p>
+                <div>foo@bar.de - 123456789</div>
+                <div id="output-billing">
+                  <strong>Shipping Address</strong><br/>
+                  50 Devon mansions<br/>
+                  Tooley Street<br/>
+                  SE12ND, London<br/>
+                  England
+                </div>
+                <div id="output-shipping">
+                  <strong>Billing Address</strong><br/>
+                  50 Devon mansions<br/>
+                  Tooley Street<br/>
+                  SE12ND, London<br/>
+                  England
+                </div>
               </span>
-              <a href="/checkout/address" class="label label-primary pull-right">Edit</a>
+              <a href="/checkout/address" class="btn btn-primary btn-xs pull-right">Edit</a>
             </div>
           </div>
 
@@ -30,7 +45,7 @@
 
         </div>
       </div>
-      <div class="col-md-4 <%= if @order.state == 'address'; "hidden-xs" end %>">
+      <div class="col-md-5 <%= if @order.state == 'address'; "hidden-xs" end %>">
         <div class="checkout-step checkout-step-2 <% if @order.state == 'address' %>checkout-step-off<% else %>checkout-step-on<% end %>">
           <div class="panel panel-primary">
             <div class="panel-heading">

@@ -7,8 +7,8 @@
         <%= form.label :email %>
         <br />
         <%= form.text_field :email, class: "form-control required email" %>
-        <span class="glyphicon glyphicon-ok form-control-feedback"></span>
-        <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+        <span class="icon-ok form-control-feedback"></span>
+        <span class="icon-cancel-1 form-control-feedback"></span>
       </div>
 
     <% end %>
@@ -19,8 +19,8 @@
           <%= form.label :firstname, Spree.t(:first_name) %>
           <br/>
           <%= form.text_field :firstname, :class => 'form-control required' %>
-          <span class="glyphicon glyphicon-ok form-control-feedback"></span>
-          <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+          <span class="icon-ok form-control-feedback"></span>
+          <span class="icon-cancel-1 form-control-feedback"></span>
         </div>
       </div>
       <div class="col-md-6">
@@ -28,8 +28,8 @@
           <%= form.label :lastname, Spree.t(:last_name) %>
           <br/>
           <%= form.text_field :lastname, :class => 'form-control required' %>
-          <span class="glyphicon glyphicon-ok form-control-feedback"></span>
-          <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+          <span class="icon-ok form-control-feedback"></span>
+          <span class="icon-cancel-1 form-control-feedback"></span>
         </div>
       </div>
     </div>
@@ -37,8 +37,8 @@
       <%= form.label :phone, Spree.t(:phone) %>
       <br/>
       <%= form.phone_field :phone, :class => "form-control #{'required' if @order.require_phone?}" %>
-      <span class="glyphicon glyphicon-ok form-control-feedback"></span>
-      <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+      <span class="icon-ok form-control-feedback"></span>
+      <span class="icon-cancel-1 form-control-feedback"></span>
     </div>
   </div>
 

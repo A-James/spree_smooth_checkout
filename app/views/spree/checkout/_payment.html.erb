@@ -2,7 +2,7 @@
 <div data-hook="checkout_payment_step">
   <ul class="list-group">
     <% @order.available_payment_methods.each do |method| %>
-    <li class="list-group-item">
+    <li class="list-group-item hidden">
       <label>
         <%= radio_button_tag "order[payments_attributes][][payment_method_id]", method.id, method == @order.available_payment_methods.first %>
         <%= Spree.t(method.name, :scope => :payment_methods, :default => method.name) %>
@@ -21,6 +21,10 @@
 </div>
 
 <div class="well text-right form-buttons" data-hook="buttons">
+  <span class="pull-left text-left">
+      <%= image_tag "norton-secured-white.png", width: "100" %>
+  </span>
+
   <%= submit_tag Spree.t(:place_order_now), :class => 'btn btn-lg btn-success continue' %>
   <script>Spree.disableSaveOnClick();</script>
 </div>
