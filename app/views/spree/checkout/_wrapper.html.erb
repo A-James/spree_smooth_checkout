@@ -1,3 +1,4 @@
+<div id="pjax-container">
 <%= render :partial => 'spree/shared/error_messages', :locals => { :target => @order } %>
 
 <div class="row" data-hook="checkout_content">
@@ -7,7 +8,7 @@
         <div class="checkout-step checkout-step-1 <% if @order.state == 'address' %>checkout-step-on<% else %>checkout-step-off<% end %>">
           <div class="panel panel-primary">
             <div class="panel-heading">
-              1. Your Information
+              <span class="badge">1</span> Your Information
             </div>
           </div>
           <div class="cover">
@@ -30,7 +31,7 @@
                   England
                 </div>
               </span>
-              <a href="/checkout/address" class="btn btn-primary btn-xs pull-right">Edit</a>
+              <a href="/checkout/address" class="btn btn-primary btn-xs pull-right no-pjax">Edit</a>
             </div>
           </div>
 
@@ -49,7 +50,7 @@
         <div class="checkout-step checkout-step-2 <% if @order.state == 'address' %>checkout-step-off<% else %>checkout-step-on<% end %>">
           <div class="panel panel-primary">
             <div class="panel-heading">
-              2. Payment Details
+              <span class="badge">2</span> Payment Details
             </div>
           </div>
           <div class="cover"></div>
@@ -71,4 +72,5 @@
         <%= render :partial => 'summary', :locals => { order: @order } %>
       </div>
     <% end %>
+</div>
 </div>

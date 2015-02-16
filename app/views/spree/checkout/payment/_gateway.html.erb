@@ -20,6 +20,7 @@
     <div class="col-md-5 field" data-hook="card_code">
       <label>CVV</label><br />
       <%= text_field_tag "#{param_prefix}[verification_value]", '', options_hash.merge(:id => 'card_code', :class => 'form-control required cardCode', :size => 5) %>
+      <div id="ccv-explained" class="hidden"></div>
     </div>
   </div>
 

@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-sm-6" data-hook="billing_fieldset_wrapper">
+  <div class="col-sm-6 your-details" data-hook="billing_fieldset_wrapper">
     <h4>Your Details</h4>
     <% unless @order.email? %>
 
@@ -42,7 +42,7 @@
     </div>
   </div>
 
-  <div class="col-sm-6" data-hook="shipping_fieldset_wrapper">
+  <div class="col-sm-6 address-details" data-hook="shipping_fieldset_wrapper">
     <div id="billing" data-hook>
       <h4>Shipping to</h4>
       <%= form.fields_for :bill_address do |bill_form| %>
