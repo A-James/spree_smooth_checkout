@@ -4,12 +4,12 @@
     <div class="<%= if @order.state != 'confirm' then 'col-md-9' else 'col-md-12' end %>" data-hook="checkout_form_wrapper">
 
       <div class="col-md-8 your-info">
-        <div class="panel panel-primary">
-          <div class="panel-heading">
-            1. Your Information
-          </div>
-        </div>
         <div class="checkout-step checkout-step-1 <% if @order.state == 'address' %>checkout-step-on<% else %>checkout-step-off<% end %>">
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+              1. Your Information
+            </div>
+          </div>
           <div class="cover">
             <div class="info">
               <span>
@@ -31,12 +31,12 @@
         </div>
       </div>
       <div class="col-md-4 <%= if @order.state == 'address'; "hidden-xs" end %>">
-        <div class="panel panel-primary">
-          <div class="panel-heading">
-            2. Payment Details
-          </div>
-        </div>
         <div class="checkout-step checkout-step-2 <% if @order.state == 'address' %>checkout-step-off<% else %>checkout-step-on<% end %>">
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+              2. Payment Details
+            </div>
+          </div>
           <div class="cover"></div>
 
           <% if @order.state == 'address' %>

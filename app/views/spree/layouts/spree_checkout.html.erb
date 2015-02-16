@@ -13,13 +13,12 @@
       <div class="container-fluid">
 
         <div id="top-bar" class="clearfix checkout hidden-xs">
-
           <canvas id="bowhurst-curve" height="100" width="200"></canvas>
-          <a href="/" id="bowhurst-logo" class="hidden-xs"></a>
-
-      </div>
+        </div>
+        <a href="/" id="bowhurst-logo" class="hidden-xs"></a>
     </header>
 
+    <div class="container-fluid">
       <div class="row" data-hook>
 
         <div id="content" class="<%= !content_for?(:sidebar) ? "col-sm-12" : "col-sm-8 col-md-9" %>" data-hook>
@@ -30,6 +29,7 @@
         <%= yield :templates %>
 
       </div>
+    </div>
 
     <%= render :partial => 'spree/shared/google_analytics' %>
     <script>
