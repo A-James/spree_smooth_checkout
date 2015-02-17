@@ -18,7 +18,6 @@
   <div class="form-group" id=<%= "#{address_id}state" %>>
     <% have_states = !address.country.states.empty? %>
     <label>State</label>
-    <span class='required' id=<%= "#{address_id}state-required" %>>*</span><br/>
 
     <% state_elements = [
         form.select(:state_id, options_for_select(address.country.states.map { |s| [s.name, s.id, {'data-abbr' => s.abbr}] }, selected: form.object.state_id),
