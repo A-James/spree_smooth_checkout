@@ -38,23 +38,24 @@
     </div>
   </div>
 
+  <%# The addresses have been swapped around; do not change the strings for shipping or billing. %>
+  <%# Spree's Javascript for these two addresses isn't adaptable enough to deal with %>
+  <%# us swapping the addresses around. By swapping the address objects around and %>
+  <%# leaving everything as-is the JS logic will continue to work as expected %>
   <div class="col-sm-6 address-details" data-hook="shipping_fieldset_wrapper">
     <div id="billing" data-hook>
       <h4>Shipping to</h4>
       <%= form.fields_for :ship_address do |ship_form| %>
-        <%= render :partial => 'spree/checkout/address/form', :locals => { :form => ship_form, :address_type => 'shipping', :address => @order.ship_address } %>
+        <%= render :partial => 'spree/checkout/address/form', :locals => { :form => ship_form, :address_type => 'billing', :address => @order.ship_address } %>
       <% end %>
     </div>
-    <%# This the the billing address even if (mostly) everything is marked as shipping %>
-    <%# The javascript to show/hide this part of the form doesn't need to be changed if %>
-    <%# the ids are left marked as if this is the shipping form, e.g. :bill_address, use_billing %>
     <div id="shipping" data-hook>
       <%= form.fields_for :bill_address do |bill_form| %>
           <span class="field checkbox" data-hook="use_billing">
             <%= check_box_tag 'order[use_billing]', '1', @order.shipping_eq_billing_address? %>
             <%= label_tag :order_use_billing, "Use this as my billing address", :id => 'use_billing' %>
           </span>
-          <%= render :partial => 'spree/checkout/address/form', :locals => { :form => bill_form, :address_type => 'billing', :address => @order.bill_address } %>
+          <%= render :partial => 'spree/checkout/address/form', :locals => { :form => bill_form, :address_type => 'shipping', :address => @order.bill_address } %>
       <% end %>
     </div>
   </div>
