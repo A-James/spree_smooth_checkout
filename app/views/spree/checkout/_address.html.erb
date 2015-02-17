@@ -67,7 +67,7 @@
   </span>
 
   <%= submit_tag Spree.t(:save_and_continue), :class => 'btn btn-lg btn-success' %>
-  <% if try_spree_current_user.try(:persist_order_address) %>
+  <% if try_spree_current_user.respond_to?(:persist_order_address) %>
       <%= hidden_field_tag 'save_user_address', '1' %>
   <% end %>
 </div>
