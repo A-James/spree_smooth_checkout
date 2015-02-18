@@ -1,7 +1,7 @@
 <div id="pjax-container">
 <%= render :partial => 'spree/shared/error_messages', :locals => { :target => @order } %>
 
-<div class="row" data-hook="checkout_content">
+<div class="row-fluid" data-hook="checkout_content">
     <div class="<%= if @order.state != 'confirm' then 'col-md-9' else 'col-md-12' end %>" data-hook="checkout_form_wrapper">
 
       <div class="col-md-7 your-info <%= if @order.state != 'address'; "hidden-xs hidden-sm" end %>">
