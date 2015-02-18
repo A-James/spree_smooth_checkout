@@ -1,18 +1,18 @@
-<div class="form-group" id=<%= "#{address_id}country" %>>
+<div class="form-group" id="<%= "#{address_id}country" %>">
   <%= form.label :country_id, Spree.t(:country) %>
   <br/>
-    <% cache_key = "#{address_id}address_options-#{available_countries.count}" %>
-    <% cache(cache_key) do %>
-      <% countries_for_select = available_countries.map { |c| [c.name, c.id, {'data-iso' => c.iso}] } %>
-      <% country_options = options_for_select(countries_for_select, selected: Spree::Config.default_country_id %>
-      <span id=<%= "#{address_id}country-selection" %>>
-        <%= form.select :country_id, country_options, {}, {:class => 'form-control required'} %>
-      </span>
-    <% end %>
-    <%# This block is required to set the country for the current user because the HTML block is globally cached. %>
-    <%= javascript_tag do %>
-      $('#<%= "#{address_id}country-selection select" %>').val('<%= form.object.country_id %>')
-    <% end %>
+  <% cache_key = "#{address_id}address_options-#{available_countries.count}" %>
+  <% cache(cache_key) do %>
+    <% countries_for_select = available_countries.map { |c| [c.name, c.id, {'data-iso' => c.iso}] } %>
+    <% country_options = options_for_select(countries_for_select, selected: Spree::Config.default_country_id) %>
+    <span id="<%= "#{address_id}country-selection" %>">
+      <%= form.select :country_id, country_options, {}, {:class => 'form-control required'} %>
+    </span>
+  <% end %>
+  <%# This block is required to set the country for the current user because the HTML block is globally cached. %>
+  <%= javascript_tag do %>
+    $('#<%= "#{address_id}country-selection select" %>').val('<%= form.object.country_id %>')
+  <% end %>
 </div>
 
 <% if Spree::Config[:address_requires_state] %>
