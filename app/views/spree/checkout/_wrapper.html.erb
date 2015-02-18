@@ -4,7 +4,7 @@
 <div class="row" data-hook="checkout_content">
     <div class="<%= if @order.state != 'confirm' then 'col-md-9' else 'col-md-12' end %>" data-hook="checkout_form_wrapper">
 
-      <div class="col-md-7 your-info">
+      <div class="col-md-7 your-info <%= if @order.state != 'address'; "hidden-xs hidden-sm" end %>">
         <div class="checkout-step checkout-step-1 <% if @order.state == 'address' %>checkout-step-on<% else %>checkout-step-off<% end %>">
           <div class="panel panel-primary">
             <div class="panel-heading">
@@ -12,30 +12,7 @@
             </div>
           </div>
           <div class="cover">
-            <div class="info clearfix">
-              <span>
-                <p class="name"><%= @order.name %></p>
-                <div><%= "#{@order.email}" %><%= " - #{@order.phone}" if @order.phone.present? %></div>
-                <% [[:ship, @order.ship_address], [:bill, @order.bill_address]].each do |(address_type, address)| %>
-                  <% address_type_text = address_type == :ship ? "Shipping" : "Billing" %>
-                  <div id="output-<%= address_type_text.downcase %>">
-                    <strong><%= address_type_text %> Address</strong><br/>
-                    <%= address.address1 %><br/>
-                    <% if address.address2.present? %>
-                      <%= address.address2 %><br/>
-                    <% end %>
-                    <% if address.country.states_required %>
-                      <%= address.city %><br />
-                      <%= address.state_text %> <%= address.zipcode %><br />
-                    <% else %>
-                      <%= address.city %>, <%= address.zipcode %><br/>
-                    <% end %>
-                    <%= address.country %>
-                  </div>
-                <% end %>
-              </span>
-              <a href="/checkout/address" class="btn btn-primary btn-xs pull-right no-pjax">Edit</a>
-            </div>
+            <%= render :partial => 'step1_summary' %>
           </div>
 
           <% if @order.state == 'address' %>
@@ -48,7 +25,7 @@
           <% end %>
         </div>
       </div>
-      <div class="col-md-5 <%= if @order.state == 'address'; "hidden-xs" end %>">
+      <div class="col-md-5 <%= if @order.state == 'address'; "hidden-xs hidden-sm" end %>">
         <div class="checkout-step checkout-step-2 <% if @order.state == 'address' %>checkout-step-off<% else %>checkout-step-on<% end %>">
           <div class="panel panel-primary">
             <div class="panel-heading">
@@ -65,6 +42,10 @@
               <%= render @order.state, :form => form %>
             <% end %>
           <% end %>
+
+          <div class="visible-xs visible-sm">
+            <%= render :partial => 'step1_summary' %>
+          </div>
 
         </div>
       </div>
