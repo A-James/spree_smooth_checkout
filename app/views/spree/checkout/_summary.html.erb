@@ -24,7 +24,7 @@
     </tbody>
 
     <tbody>
-      <% if order.passed_checkout_step?("delivery") && order.shipments.any? %>
+      <% if order.shipments.any? %>
         <%= form_for order, remote: true, :url => update_checkout_path(order.state), :html => {:id => "checkout_form_#{order.state}"} do |form| %>
             <%= form.hidden_field :state_lock_version %>
             <input type="hidden" name="is_summary" id="is_summary" value="true"/>
