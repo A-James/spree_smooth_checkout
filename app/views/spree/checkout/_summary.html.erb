@@ -49,13 +49,22 @@
                     <% end %>
                   </td>
                 </tr>
+              <% else %>
+                <tr>
+                  <td><%= Spree.t(:shipping) %></td>
+                  <td class="text-right">
+                    <%= shipment.discounted_cost == 0 ? "FREE" : shipment.display_discounted_cost %>
+                  </td>
+                </tr>
               <% end %>
             <% end %>
 
-            <tr>
-              <td><%= Spree.t(:shipping_total) %></td>
-              <td class="text-right"><%= Spree::Money.new(order.shipments.to_a.sum(&:cost), currency: order.currency).to_html %></td>
-            </tr>
+            <% if order.shipments.count > 1 %>
+              <tr>
+                <td><%= Spree.t(:shipping_total) %></td>
+                <td class="text-right"><%= Spree::Money.new(order.shipments.to_a.sum(&:cost), currency: order.currency).to_html %></td>
+              </tr>
+            <% end %>
 
             <% shipments_or_shipping_instructions_can_be_updated = form.object.shipments.any? { |s| s.shipping_rates.count > 1 } || Spree::Config[:shipping_instructions] %>
             <% if shipments_or_shipping_instructions_can_be_updated %>
@@ -76,7 +85,7 @@
         <% end %>
       <% end %>
     </tbody>
-    
+
     <tbody>
       <tr data-hook="order_total">
         <td><%= Spree.t(:order_total) %></td>
