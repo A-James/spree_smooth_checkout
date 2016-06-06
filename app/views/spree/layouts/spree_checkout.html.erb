@@ -9,14 +9,7 @@
   </head>
   <body class="<%= body_class %>" id="<%= @body_id || 'checkout' %>" data-hook="body">
 
-    <header id="header" data-hook>
-      <div class="container-fluid">
-
-        <div id="top-bar" class="clearfix checkout">
-          <canvas id="bowhurst-curve" height="100" width="200"></canvas>
-        </div>
-        <span id="bowhurst-logo"></span>
-    </header>
+    <%= render 'spree/shared/smooth_checkout_header' %>
 
     <div class="container-fluid">
       <div class="row" data-hook>
