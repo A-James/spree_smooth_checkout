@@ -11,6 +11,12 @@ module SpreeSmoothCheckout
       g.test_framework :rspec
     end
 
+    initializer "my_gem.include_view_helpers" do |app|
+      ActiveSupport.on_load :action_view do
+        include SmoothCheckoutHelper
+      end
+    end
+
     def self.activate
       Dir.glob(File.join(File.dirname(__FILE__), '../../app/**/*_decorator*.rb')) do |c|
         Rails.configuration.cache_classes ? require(c) : load(c)
