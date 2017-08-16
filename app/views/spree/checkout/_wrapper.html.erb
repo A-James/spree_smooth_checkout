@@ -4,7 +4,7 @@
 <div class="row-fluid" data-hook="checkout_content">
     <div class="<%= if @order.state != 'confirm' then 'col-md-9' else 'col-md-12' end %>" data-hook="checkout_form_wrapper">
 
-      <div class="col-md-7 your-info <%= if @order.state != 'address'; "hidden-xs hidden-sm" end %>">
+      <div class="col-md-7 col-sm-12 col-xs-12 your-info <%= if @order.state != 'address'; "" end %>">
         <div class="checkout-step checkout-step-1 <%= step_class(@order, 'address') %>">
           <div class="panel panel-primary">
             <div class="panel-heading">
@@ -47,7 +47,7 @@
 
         </div>
       </div>
-      <div class="col-md-5 <%= if @order.state == 'address'; "hidden-xs hidden-sm" end %>">
+      <div class="col-md-5 col-sm-12 col-xs-12 <%= if @order.state == 'address'; "" end %>">
         <div class="checkout-step checkout-step-3 <%= step_class(@order, 'payment') %>">
           <div class="panel panel-primary">
             <div class="panel-heading">
@@ -64,10 +64,6 @@
               <%= render @order.state, :form => form %>
             <% end %>
           <% end %>
-
-          <div class="visible-xs visible-sm">
-            <%= render :partial => 'step1_summary' %>
-          </div>
 
         </div>
       </div>
