@@ -2,76 +2,74 @@
 <%= render :partial => 'spree/shared/error_messages', :locals => { :target => @order } %>
 
 <div class="row-fluid" data-hook="checkout_content">
-    <div class="<%= if @order.state != 'confirm' then 'col-md-9' else 'col-md-12' end %>" data-hook="checkout_form_wrapper">
-
-      <div class="col-md-7 col-sm-12 col-xs-12 your-info">
-        <div class="checkout-step checkout-step-1 <%= step_class(@order, 'address') %>">
-          <div class="panel panel-primary">
-            <div class="panel-heading">
-              <span class="badge">1</span> Your Information
-            </div>
+  <div class="<%= if @order.state != 'confirm' then 'col-md-9' else 'col-md-12' end %>" data-hook="checkout_form_wrapper">
+    <div class="col-md-7 col-sm-12 col-xs-12 your-info">
+      <div class="checkout-step checkout-step-1 <%= step_class(@order, 'address') %>">
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <span class="badge">1</span> Your Information
           </div>
-          <div class="cover">
-            <%= render :partial => 'step1_summary' %>
-          </div>
-
-          <% if @order.state == 'address' %>
-            <%= form_for @order, :url => update_checkout_path(@order.state), :html => { :id => "checkout_form_#{@order.state}" } do |form| %>
-             <%= form.hidden_field :state_lock_version %>
-             <%= render @order.state, :form => form %>
-            <% end %>
-          <% else %>
-            <%= render :partial => 'dummyaddress' %>
-          <% end %>
+        </div>
+        <div class="cover">
+          <%= render :partial => 'step1_summary' %>
         </div>
 
-        <div class="checkout-step checkout-step-2 <%= step_class(@order, 'delivery') %>">
-          <div class="panel panel-primary">
-            <div class="panel-heading">
-              <span class="badge">2</span> Delivery Information
-            </div>
-          </div>
-
-          <div class="cover">
-            <%= render :partial => 'step2_summary' %>
-          </div>
-
-          <% if @order.state == 'delivery' %>
-            <%= form_for @order, :url => update_checkout_path(@order.state), :html => { :id => "checkout_form_#{@order.state}" } do |form| %>
-             <%= form.hidden_field :state_lock_version %>
-             <%= render @order.state, :form => form %>
-            <% end %>
-          <% else %>
-            <%= @order.shipment_total %>
+        <% if @order.state == 'address' %>
+          <%= form_for @order, :url => update_checkout_path(@order.state), :html => { :id => "checkout_form_#{@order.state}" } do |form| %>
+           <%= form.hidden_field :state_lock_version %>
+           <%= render @order.state, :form => form %>
           <% end %>
-
-        </div>
+        <% else %>
+          <%= render :partial => 'dummyaddress' %>
+        <% end %>
       </div>
-      <div class="col-md-5 col-sm-12 col-xs-12">
-        <div class="checkout-step checkout-step-3 <%= step_class(@order, 'payment') %>">
-          <div class="panel panel-primary">
-            <div class="panel-heading">
-              <span class="badge">3</span> Payment Details
-            </div>
+
+      <div class="checkout-step checkout-step-2 <%= step_class(@order, 'delivery') %>">
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <span class="badge">2</span> Delivery Information
           </div>
-          <div class="cover"></div>
-
-          <% if @order.state == 'address' || @order.state == 'delivery'%>
-            <%= render :partial => 'payment' %>
-          <% else %>
-            <%= form_for @order, :url => update_checkout_path(@order.state), :html => { :id => "checkout_form_#{@order.state}" } do |form| %>
-              <%= form.hidden_field :state_lock_version %>
-              <%= render @order.state, :form => form %>
-            <% end %>
-          <% end %>
-
         </div>
+
+        <div class="cover">
+          <%= render(:partial => 'step2_summary') if @order.passed_checkout_step?('address') %>
+        </div>
+
+        <% if @order.state == 'delivery' %>
+          <%= form_for @order, :url => update_checkout_path(@order.state), :html => { :id => "checkout_form_#{@order.state}" } do |form| %>
+           <%= form.hidden_field :state_lock_version %>
+           <%= render @order.state, :form => form %>
+          <% end %>
+        <% else %>
+          <%= @order.shipment_total %>
+        <% end %>
       </div>
     </div>
-    <% if @order.state != 'confirm' %>
-      <div id="checkout-summary" data-hook="checkout_summary_box" class="col-md-3">
-        <%= render :partial => 'summary', :locals => { order: @order } %>
+    <div class="col-md-5 col-sm-12 col-xs-12">
+      <div class="checkout-step checkout-step-3 <%= step_class(@order, 'payment') %>">
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <span class="badge">3</span> Payment Details
+          </div>
+        </div>
+        <div class="cover"></div>
+
+        <% if @order.state == 'address' || @order.state == 'delivery'%>
+          <%= render :partial => 'payment' %>
+        <% else %>
+          <%= form_for @order, :url => update_checkout_path(@order.state), :html => { :id => "checkout_form_#{@order.state}" } do |form| %>
+            <%= form.hidden_field :state_lock_version %>
+            <%= render @order.state, :form => form %>
+          <% end %>
+        <% end %>
+
       </div>
-    <% end %>
-</div>
+    </div>
+  </div>
+  <% if @order.state != 'confirm' %>
+    <div id="checkout-summary" data-hook="checkout_summary_box" class="col-md-3">
+      <%= render :partial => 'summary', :locals => { order: @order } %>
+    </div>
+  <% end %>
+  </div>
 </div>
