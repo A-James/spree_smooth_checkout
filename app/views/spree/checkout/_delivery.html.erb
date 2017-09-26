@@ -1,7 +1,33 @@
-<%
-# This template is not used by spree_smooth_checkout.
-# It's cleared here to ensure that this is the template
-# that is rendered if a visitor ever reaches the
-# delivery page, i.e. the project won't override this
-# gems template.
-%>
+<div class="row mb-1" data-hook="checkout_delivery_step">
+  <div class="col-md-12 address-details">
+    <% form.object.shipments.each do |shipment| %>
+      <% if shipment.shipping_rates.count > 1 %>
+        <h4><%= Spree.t(:shipping_method) %></h4>
+          <%= form.fields_for :shipments, shipment do |ship_form| %>
+              <% ship_form.object.shipping_rates.each do |rate| %>
+                  <li class="list-group-item shipping-method">
+                    <label>
+                      <%= ship_form.radio_button :selected_shipping_rate_id, rate.id %>
+                      <span class="rate-name"><%= rate.name %></span>
+                      <span class="badge rate-cost"><%= rate.display_cost %></span>
+                    </label>
+                  </li>
+              <% end %>
+          <% end %>
+      <% else %>
+          <h4><%= Spree.t(:shipping) %></h4>
+          <p>
+            <%= shipment.discounted_cost == 0 ? "FREE" : shipment.display_discounted_cost %>
+          </p>
+      <% end %>
+  </div>
+</div>
+
+<div class="well text-right form-buttons" data-hook="buttons">
+  <span class="pull-left text-left">
+    <%= image_tag "norton-secured-white.png", width: "100" %>
+  </span>
+
+  <%= submit_tag Spree.t(:save_and_continue), :class => 'btn btn-lg btn-success' %>
+</div>
+<% end %>

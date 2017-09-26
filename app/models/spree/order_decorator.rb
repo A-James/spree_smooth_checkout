@@ -1,8 +1,4 @@
 Spree::Order.class_eval do
-    state_machine do
-      after_transition :to => :delivery, :do => :skip_delivery
-    end
-
     # This has been overridden to clone the shipping address instead of Spree's
     # default of the billing address.
     def clone_billing_address
@@ -69,11 +65,4 @@ Spree::Order.class_eval do
     def require_phone?
       bill_address.try(:require_phone?) || ship_address.try(:require_phone?)
     end
-
-    private
-      def skip_delivery
-        # Progress the state machine to the next state,
-        # skipping the current 'delivery' state.
-        self.next
-      end
 end
