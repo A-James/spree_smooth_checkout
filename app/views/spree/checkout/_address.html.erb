@@ -4,7 +4,7 @@
      <div class="form-group has-feedback" id="email">
       <%= form.label :email %>
       <br />
-      <%= form.text_field :email, class: "form-control required email" %>
+      <%= form.text_field :email, class: "form-control required email", disabled: try_spree_current_user %>
       <span class="icon-ok form-control-feedback"></span>
       <span class="icon-cancel-1 form-control-feedback"></span>
     </div>
